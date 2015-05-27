@@ -19,6 +19,7 @@ public class Circle {
     pos = new PVector(parent.random(0+r,parent.width-r), parent.random(0+r,parent.height-r));
     // All circles have a random positive speed
     speed = new PVector(parent.random(1,3),parent.random(1,3)); 
+    
   }
 
   // Draw circle

@@ -13,7 +13,7 @@ public class MyProcessingSketch extends PApplet {
   }
 
   public void draw() {
-    background(100);
+    background(100,10);
     // Move and display all "stripes"
     for (int i = 0; i < circles.length; i++) {
       circles[i].move();
