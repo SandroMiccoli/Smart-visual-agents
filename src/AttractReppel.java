@@ -53,6 +53,8 @@ public class AttractReppel extends PApplet {
 		controlP5.setColorLabel(0xffdddddd);
 		controlP5.setColorValue(0xffff88ff);
 		controlP5.setColorActive(0xffff0000);
+		
+		controlP5.addTab("Tab");
 
 		// add the elments ( see example 1 for the parameters )
 		controlP5.addBang("FREEZE",10,10,20,20);    
@@ -60,6 +62,7 @@ public class AttractReppel extends PApplet {
 		controlP5.addToggle("FROZEN?",false,170,10,20,20);    
 		controlP5.addSlider("COLOR_1",0,255,128,10,80,10,100);
 		controlP5.addSlider("COLOR_2",0,255,128,10,200,10,100);
+		    
 
 		Slider s = controlP5.addSlider("TRAIL",0,255,128,70,80,100,10);
 		// change sliderMode of the Slider object. The default is Slider.FIX
@@ -78,6 +81,10 @@ public class AttractReppel extends PApplet {
 
 			print("control event from : "+theEvent.controller().name());
 			println(", value : "+theEvent.controller().value());
+			
+			if(theEvent.controller().name()=="HIDE") {
+				controlP5.hide();
+			}
 
 			// clicking on FREEZE sets FROZEN? value to 1 (true)      
 			if(theEvent.controller().name()=="FREEZE") {
@@ -226,7 +233,7 @@ public class AttractReppel extends PApplet {
 		//method to render the particle. control how it looks here!
 		void display(){
 			ellipseMode(CENTER);
-			fill(d, color1, color2);
+			fill(d, color1, color2,150);
 			ellipse(loc.x, loc.y, sz, sz);
 		}
 
