@@ -10,11 +10,12 @@ public class P5ControllerTest extends PApplet {
 
 	ControlP5 controlP5;
 	 
-	public void setup() {
+	public ControlP5 createNewController() {
 	  size(300,260);
 	  smooth();
 	  
 	  controlP5 = new ControlP5(this);
+	  controlP5.setAutoDraw(true);
 	  
 	  // change the default font to Verdana
 	  PFont p = createFont("Verdana",9); 
@@ -42,6 +43,9 @@ public class P5ControllerTest extends PApplet {
 	  Numberbox n = controlP5.addNumberbox("numberbox1",50,170,120,60,14);
 	  // change Multiplier of the Numberbox ( default is 1 )
 	  n.setMultiplier(30);
+	  
+	  return controlP5;
+	  
 	}
 	 
 	public void draw() { 
