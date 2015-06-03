@@ -2,46 +2,47 @@ import processing.core.*;
 
 /**
  * 
- * Class that defines the "attraction" behavior.
+ * Class that defines the "repel" behavior.
  * 
  * The object that's decorated with this class will attract other shapes.
  * 
  */
 
-public class AttractShape extends DecoratedShape {
+public class RepelShape extends DecoratedShape {
+	
+	Shape ref;
 
 	/**
 	 * @param shapeReference
 	 */
-	public AttractShape(Shape shapeReference) {
+	public RepelShape(Shape shapeReference) {
 		super(shapeReference);
+		ref = shapeReference;
 	}
 	
 	@Override
 	public void run(){
-		attractOtherShapes();
+		repelOtherShapes();
 		super.run();
 		//super.display();
 		//super.bounds();
 
 	}
 	
-	private void attractOtherShapes(){
+	private void repelOtherShapes(){
 		Shape[] allShapes = DecoratorTest.getShapes();
 		for (int i = 0; i < allShapes.length; i++) {
 			//allShapes[i].getPos().lerp(this.getPos(), (float) 0.5);
-			forces(allShapes[i]);
-			
+			if (!allShapes[i].equals(this))
+				forces(allShapes[i]);
 		}
 	}
 
 	public void forces(Shape targetLoc){
 	    PVector dir = PVector.sub(targetLoc.getPos(),this.getPos());  //calculate the direction between a particle and targetLoc
 	    float d = dir.mag();  //calculate how far away the particle is from targetLoc
-	    //System.out.println(d);
 	    dir.normalize();  //convert the measurement to a unit vector
-	    //System.out.println(dir);
-	    dir.mult(-1);
+	    dir.mult((float)1.5);
 	    
 	    //calculate the strength of the force by factoring in a gravitational constant and the mass of a particle
 	    //multiply by distance^2

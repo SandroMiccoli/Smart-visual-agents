@@ -35,6 +35,11 @@ public class DecoratedShape implements Shape {
 	}
 
 	@Override
+	public void drawVectors() {
+		privateShape.drawVectors();
+	}
+
+	@Override
 	public PVector getPos() {
 		return privateShape.getPos();
 	}

@@ -43,6 +43,13 @@ public class Circle implements Shape{
 	    //parent.point(this.pos.x,this.pos.y);
 	}
 	
+	public void drawVectors(){
+		int magnify = 15; // increase size of speed to visualize better
+	    parent.stroke(255,0,0,150);
+	    parent.strokeWeight(3);
+		parent.line(this.pos.x, this.pos.y, this.pos.x+this.speed.x*magnify, this.pos.y+this.speed.y*magnify);
+	}
+	
     // Move circle
 	public void move() {
 		speed.add(acc);
@@ -61,6 +68,7 @@ public class Circle implements Shape{
 	//tx and ty are inherited from forces(), and set the attractive/repulsive co-ords
 	public void run(){
 		display();
+		drawVectors();
 		move();
 		bounds();
 	}

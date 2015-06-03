@@ -10,6 +10,7 @@ public interface Shape {
 	public void move();
 	public void run();
 	public void bounds();
+	public void drawVectors();
 	public PVector getPos();
 	public void setPos(PVector pos);
 	public PVector getSpeed();
