@@ -16,6 +16,7 @@ public class DecoratorTest extends PApplet {
       circles[i] = new Circle(this);
     }
     
+    // Error: trying to add the "repel" behaviour to circles...
     for (int i = 0; i < circles.length; i++) {
       Shape c = new RepelShape(circles[i]);
   	  circles[i] = c;
