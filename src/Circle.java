@@ -8,7 +8,7 @@ public class Circle implements Shape{
 	private PVector pos;     // horizontal location of circle
 	private PVector speed; // speed of circle
 	private PVector acc; // acceleration speed
-	int velocityLimit = 5;  //the maximum velocity a circle can travel at
+	int velocityLimit = 3;  //the maximum velocity a circle can travel at
 	private float r;     // radius of circle
 	
 	private  float gravity; // circle gravity

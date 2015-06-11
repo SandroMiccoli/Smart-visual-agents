@@ -1,7 +1,10 @@
+
 import processing.core.*;
+
 
 public class DecoratorTest extends PApplet {
   //	An array of circles
+	
   private static Shape[] circles = new Circle[5];
   
   Shape attractor;  
@@ -13,25 +16,27 @@ public class DecoratorTest extends PApplet {
     
     // Initialize all "circles"
     for (int i = 0; i < circles.length; i++) {
-      circles[i] = new Circle(this);
+     circles[i] = new Circle(this);
     }
     
+    
     // Error: trying to add the "repel" behaviour to circles...
-    for (int i = 0; i < circles.length; i++) {
-      Shape c = new RepelShape(circles[i]);
-  	  circles[i] = c;
-  	}
+//    for (int i = 0; i < circles.length; i++) {
+//      Shape c =  new Circle(this);
+//      c = new RepelShape(c);
+//  	  //circles[i] = c;
+//  	}
 
     attractor = new Circle(this);
-    attractor.setPos(new PVector(width/2,height/3));
+    attractor.setPos(new PVector(width-50,100));
     
     repeller = new Circle(this);
-    repeller.setPos(new PVector(width/2,height/3*2));
+    repeller.setPos(new PVector(width-100,200));
   }
 
   public void draw() {
     background(100,10);
-    // Move and display all "stripes"
+    // Move and display all circles
     for (int i = 0; i < circles.length; i++) {
       circles[i].run();
     }
@@ -42,7 +47,7 @@ public class DecoratorTest extends PApplet {
   
   public void mouseClicked(){
 	attractor = new AttractShape(attractor);
-	//repeller = new RepelShape(repeller);
+	repeller = new RepelShape(repeller);
 	//circles[1] = new RepelShape(circles[1]);
 	
   }
