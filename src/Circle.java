@@ -68,7 +68,7 @@ public class Circle implements Shape{
 	//tx and ty are inherited from forces(), and set the attractive/repulsive co-ords
 	public void run(){
 		display();
-		drawVectors();
+//		drawVectors();
 		move();
 		bounds();
 	}

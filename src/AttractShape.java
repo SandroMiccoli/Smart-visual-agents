@@ -38,9 +38,9 @@ public class AttractShape extends DecoratedShape {
 	public void forces(Shape targetLoc){
 	    PVector dir = PVector.sub(targetLoc.getPos(),this.getPos());  //calculate the direction between a particle and targetLoc
 	    float d = dir.mag();  //calculate how far away the particle is from targetLoc
-	    System.out.println(d);
+//	    System.out.println(d);
 	    dir.normalize();  //convert the measurement to a unit vector
-	    System.out.println(dir);
+//	    System.out.println(dir);
 	    dir.mult(-1*d);
 	    
 	    //calculate the strength of the force by factoring in a gravitational constant and the mass of a particle
@@ -54,6 +54,4 @@ public class AttractShape extends DecoratedShape {
 		dir.div(targetLoc.getMass());
 		targetLoc.getSpeed().add(dir);
 	}
-
-
 }

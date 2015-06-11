@@ -1,13 +1,16 @@
 
+import java.awt.event.MouseEvent;
+
 import processing.core.*;
 
 
 public class DecoratorTest extends PApplet {
   //	An array of circles
 	
-  private static Shape[] circles = new Shape[5];
+  private static Shape[] circles = new Shape[50];
   
-  Shape attractor;  
+  Shape attractor;
+  Shape reppeler;
 
   public void setup() {
     size(600,600);
@@ -25,7 +28,10 @@ public class DecoratorTest extends PApplet {
   	}
 
     attractor = new Circle(this);
-    attractor.setPos(new PVector(width/2,height/2));
+//    attractor.setPos(new PVector(width/2,height/2));
+    
+    reppeler = new Circle(this);
+//    reppeler.setPos(new PVector(width/2,height/2));
   }
 
   public void draw() {
@@ -36,10 +42,21 @@ public class DecoratorTest extends PApplet {
     }
 
     attractor.run();
+    reppeler.run();
   }
   
-  public void mouseClicked(){
-	attractor = new AttractShape(attractor);
+  public void mouseClicked(MouseEvent e) {
+	if (e.getButton() == MouseEvent.BUTTON1) {
+		attractor = new AttractShape(attractor);
+//		attractor = new Circle(this);
+	    attractor.setPos(new PVector(mouseX,mouseY));
+	}
+	else if (e.getButton() == MouseEvent.BUTTON3) {
+		reppeler = new RepelShape(reppeler);
+//		reppeler = new Circle(this);
+	    reppeler.setPos(new PVector(mouseX,mouseY));
+	}
+	
   }
   
   public static Shape[] getShapes(){
