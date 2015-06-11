@@ -1,0 +1,85 @@
+digraph G {
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+
+        node [
+                group = a
+                fontname = "Bitstream Vera Sans"
+                fontsize = 8
+                shape = "record"
+        ]
+
+
+        edge [
+                fontname = "Bitstream Vera Sans"
+                fontsize = 8
+        ]
+
+        InitialState [
+                label = "{Initial state}"
+        ]
+        WaitForCombination [
+                label = "{Wait for combination}"
+        ]
+        SortRank [
+                label = "{Sort by Rank}"
+        ]
+        
+        SortSuit [
+                label = "{Sort by Suit}"
+        ]
+
+        Pass [
+                label = "{Pass}"
+        ]
+        
+        CreateCombination [
+                label = "{Create combination}"
+        ]
+
+        NextPlayer [
+                label = "{Next player}"
+        ]
+        
+        EndOfGame [
+                label = "{Game over}"
+        ]
+
+        edge [
+                label = "Start player detected"
+        ]
+        InitialState -> WaitForCombination
+
+        edge [
+                label = ""
+        ]
+        WaitForCombination -> SortSuit
+        WaitForCombination -> SortRank
+        SortSuit -> WaitForCombination
+        SortRank -> WaitForCombination
+        Pass -> NextPlayer
+        NextPlayer -> WaitForCombination
+        WaitForCombination -> CreateCombination
+        edge [
+                label = "Is new round?"
+        ]
+        WaitForCombination -> Pass
+
+        
+        edge [
+                label = "Valid combination"
+        ]
+        CreateCombination -> NextPlayer
+        
+        edge [
+                label = "Combination not valid"
+        ]
+        CreateCombination -> WaitForCombination
+        
+        edge [
+                label = "Player has 0 cards"
+        ]
+        NextPlayer -> EndOfGame
+
+
+}
