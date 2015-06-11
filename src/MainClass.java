@@ -4,7 +4,7 @@ public class MainClass {
 
 	 public static void main(String args[]) {
 		
-	    PApplet.main(new String[] { "--present", "MyProcessingSketch" });
+	    PApplet.main(new String[] { "--present", "DecoratorTest" });
 	 }
 
 

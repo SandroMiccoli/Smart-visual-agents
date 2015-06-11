@@ -5,7 +5,7 @@ import processing.core.*;
 public class DecoratorTest extends PApplet {
   //	An array of circles
 	
-  private static Shape[] circles = new Circle[5];
+  private static Shape[] circles = new Shape[25];
   
   Shape attractor;  
   Shape repeller;
@@ -21,11 +21,10 @@ public class DecoratorTest extends PApplet {
     
     
     // Error: trying to add the "repel" behaviour to circles...
-//    for (int i = 0; i < circles.length; i++) {
-//      Shape c =  new Circle(this);
-//      c = new RepelShape(c);
-//  	  //circles[i] = c;
-//  	}
+    for (int i = 0; i < circles.length; i++) {
+      Shape c = new RepelShape(circles[i]);
+      circles[i] = c;
+  	}
 
     attractor = new Circle(this);
     attractor.setPos(new PVector(width-50,100));
