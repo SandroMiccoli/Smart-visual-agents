@@ -42,14 +42,14 @@ public class RepelShape extends DecoratedShape {
 	    PVector dir = PVector.sub(targetLoc.getPos(),this.getPos());  //calculate the direction between a particle and targetLoc
 	    float d = dir.mag();  //calculate how far away the particle is from targetLoc
 	    dir.normalize();  //convert the measurement to a unit vector
-	    dir.mult((float)1.5);
+	    dir.mult((float)0.5);
 	    
 	    //calculate the strength of the force by factoring in a gravitational constant and the mass of a particle
 	    //multiply by distance^2
 	    //float force = (this.getGravity()*this.getMass()) / (d*d);
 	    //dir.div(force);
 	    
-	    dir.div(targetLoc.getMass());
+	    //dir.div(targetLoc.getMass());
 		
 		// only apply forces if in a certain distance
 		if (d<150)
