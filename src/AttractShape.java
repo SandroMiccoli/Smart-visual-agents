@@ -21,8 +21,6 @@ public class AttractShape extends DecoratedShape {
 	public void run(){
 		attractOtherShapes();
 		super.run();
-		//super.display();
-		//super.bounds();
 
 	}
 	

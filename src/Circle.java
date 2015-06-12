@@ -35,8 +35,10 @@ public class Circle implements Shape{
 	// Draw circle
 	public void display() {
 	
-		parent.fill(255); // Color fill
-	    parent.noStroke();
+		//parent.fill(255); // Color fill
+	    parent.noFill();
+		//parent.noStroke();
+	    parent.strokeWeight(1);
 	    parent.stroke(255);
 	    
 	    parent.ellipse(this.pos.x,this.pos.y,this.r,this.r);

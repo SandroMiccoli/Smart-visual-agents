@@ -24,8 +24,6 @@ public class RepelShape extends DecoratedShape {
 	public void run(){
 		repelOtherShapes();
 		super.run();
-		//super.display();
-		//super.bounds();
 
 	}
 	

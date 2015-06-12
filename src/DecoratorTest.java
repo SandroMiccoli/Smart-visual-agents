@@ -7,7 +7,7 @@ import controlP5.*;
 public class DecoratorTest extends PApplet {
   //	An array of circles
 	
-  private static Shape[] circles = new Shape[5];
+  private static Shape[] circles = new Shape[4];
   
   P5ControlPanel controlP5;
   
@@ -43,6 +43,7 @@ public class DecoratorTest extends PApplet {
     }
 
     attractor.run();
+    connectShapes();
   }
   
   public void mouseClicked(){
@@ -53,5 +54,15 @@ public class DecoratorTest extends PApplet {
   
   public static Shape[] getShapes(){
 	  return circles;
+  }
+  
+  private void connectShapes(){
+	  for (int i = 0; i < circles.length; i++) {
+		  for (int j = circles.length/2-1; j < circles.length; j++) {
+			  strokeWeight(1);
+			  stroke(0);
+			  line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
+		  }
+	    }
   }
 }
