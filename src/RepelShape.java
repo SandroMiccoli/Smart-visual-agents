@@ -52,7 +52,7 @@ public class RepelShape extends DecoratedShape {
 	    //dir.div(targetLoc.getMass());
 		
 		// only apply forces if in a certain distance
-		if (d<150)
+		if (d<targetLoc.getR())
 			targetLoc.getSpeed().add(dir);
 	}
 

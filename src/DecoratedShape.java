@@ -40,9 +40,13 @@ public class DecoratedShape implements Shape {
 	}
 
 	@Override
+	public float getR() {
+		return privateShape.getR();
+	}
+	
+	@Override
 	public void setR(float r) {
 		privateShape.setR(r);
-		
 	}
 
 	@Override

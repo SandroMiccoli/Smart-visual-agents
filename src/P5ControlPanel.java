@@ -30,19 +30,21 @@ public class P5ControlPanel extends PApplet {
 
 		// add the elments ( see example 1 for the parameters )
 		//controlP5.addBang("FREEZE",10,10,20,20);    
-		controlP5.addButton("ADD FOCUS",1,70,10,60,20);  
-		controlP5.addToggle("FROZEN?",false,170,10,20,20);    
+		//controlP5.addButton("ADD FOCUS",1,70,10,60,20);  
+		//controlP5.addToggle("FROZEN?",false,170,10,20,20);    
 		//controlP5.addSlider("COLOR_1",0,255,128,10,80,10,100);
 		//controlP5.addSlider("COLOR_2",0,255,128,10,200,10,100);
-		controlP5.addSlider("Repel",0,20,1,10,200,10,100);
-		controlP5.addSlider("Size",20,200,1,10,80,10,100);
-		controlP5.addToggle("Vectors",false,10,10,20,20);    
+		//controlP5.addSlider("Repel",0,20,1,10,200,10,100);
+		controlP5.addKnob("Size",10,250,50,80,10,60);
+		//controlP5.addSlider("Size",20,200,1,10,80,10,100);
+		controlP5.addToggle("Vectors",false,10,10,20,20);
+		controlP5.addToggle("Connect",false,10,50,20,20);    
 
-		Slider s = controlP5.addSlider("TRAIL",0,255,128,70,80,100,10);
+		//Slider s = controlP5.addSlider("TRAIL",0,255,128,70,80,100,10);
 		// change sliderMode of the Slider object. The default is Slider.FIX
-		s.setSliderMode(Slider.FLEXIBLE); 
+		//s.setSliderMode(Slider.FLEXIBLE); 
 
-		controlP5.addKnob("PARTICLE_SIZE",0,360,0,70,120,50);
+		
 
 //		Numberbox n = controlP5.addNumberbox("numberbox1",50,170,120,60,14);
 //		// change Multiplier of the Numberbox ( default is 1 )
