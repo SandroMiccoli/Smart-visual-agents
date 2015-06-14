@@ -40,6 +40,12 @@ public class DecoratedShape implements Shape {
 	}
 
 	@Override
+	public void setR(float r) {
+		privateShape.setR(r);
+		
+	}
+
+	@Override
 	public PVector getPos() {
 		return privateShape.getPos();
 	}

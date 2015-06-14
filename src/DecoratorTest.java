@@ -27,7 +27,7 @@ public class DecoratorTest extends PApplet {
     
     //Add "repel" behaviour to all circles...
     for (int i = 0; i < circles.length; i++) {
-      Shape c = new RepelShape(circles[i]);
+      Shape c = new RepelShape(circles[i],controlP5.getControllerValue("Repel"));
       circles[i] = c;
   	}
 
@@ -36,19 +36,24 @@ public class DecoratorTest extends PApplet {
   }
 
   public void draw() {
+	  
     background(100,10);
     // Move and display all circles
     for (int i = 0; i < circles.length; i++) {
       circles[i].run();
+      circles[i].setR(controlP5.getControllerValue("Size"));
+      if(controlP5.getControllerValue("Vectors")==1)
+    	  circles[i].drawVectors();
+    	
     }
 
     attractor.run();
-    connectShapes();
+    //connectShapes();
   }
   
   public void mouseClicked(){
 	attractor = new AttractShape(attractor);
-	attractor = new RepelShape(attractor);
+	attractor = new RepelShape(attractor,controlP5.getControllerValue("Repel"));
 	
   }
   

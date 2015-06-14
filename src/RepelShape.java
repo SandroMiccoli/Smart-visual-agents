@@ -11,13 +11,15 @@ import processing.core.*;
 public class RepelShape extends DecoratedShape {
 	
 	Shape ref;
+	float amount=1;
 
 	/**
 	 * @param shapeReference
 	 */
-	public RepelShape(Shape shapeReference) {
+	public RepelShape(Shape shapeReference, float amount) {
 		super(shapeReference);
 		ref = shapeReference;
+		this.amount = amount;
 	}
 	
 	@Override
@@ -40,7 +42,7 @@ public class RepelShape extends DecoratedShape {
 	    PVector dir = PVector.sub(targetLoc.getPos(),this.getPos());  //calculate the direction between a particle and targetLoc
 	    float d = dir.mag();  //calculate how far away the particle is from targetLoc
 	    dir.normalize();  //convert the measurement to a unit vector
-	    dir.mult((float)0.5);
+	    dir.mult((float)0.5*amount);
 	    
 	    //calculate the strength of the force by factoring in a gravitational constant and the mass of a particle
 	    //multiply by distance^2

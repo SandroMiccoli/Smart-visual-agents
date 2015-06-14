@@ -20,7 +20,8 @@ public class Circle implements Shape{
 		this.parent = p;
 		    
 		// random size
-		this.r = parent.random(15,35);
+		//this.r = parent.random(15,35);
+		this.r = 150;
 		// All circles start at random position
 		this.pos = new PVector(parent.random(0+r,parent.width-r), parent.random(0+r,parent.height-r));
 		// All circles have a random positive speed
@@ -70,7 +71,6 @@ public class Circle implements Shape{
 	//tx and ty are inherited from forces(), and set the attractive/repulsive co-ords
 	public void run(){
 		display();
-		drawVectors();
 		move();
 		bounds();
 	}
