@@ -16,6 +16,7 @@ public class DecoratorTest extends PApplet {
 
   public void setup() {
     size(600,600);
+    //frameRate(1);
     //background(0);
     
     controlP5 = new P5ControlPanel(this);
@@ -42,34 +43,41 @@ public class DecoratorTest extends PApplet {
     for (int i = 0; i < circles.length; i++) {
       circles[i].run();
       circles[i].setR(controlP5.getControllerValue("Size"));
+      
       if(controlP5.getControllerValue("Vectors")==1)
     	  circles[i].drawVectors();
     	
     }
     if(controlP5.getControllerValue("Connect")==1)
     	connectShapes();
+    
+    //System.out.println(controlP5.getControllerValue("Attract"));
 
     attractor.run();
   }
+ 
   
-  public void mouseClicked(){
-	attractor = new AttractShape(attractor);
-	//attractor = new RepelShape(attractor,controlP5.getControllerValue("Repel"));
-	
-  }
-  
-  public static Shape[] getShapes(){
-	  return circles;
-  }
-  
-  private void connectShapes(){
-	  for (int i = 0; i < circles.length; i++) {
-		  //for (int j = circles.length/2-1; j < circles.length; j++) {
-		  for (int j = 0; j < circles.length; j++) {
-			  strokeWeight(1);
-			  stroke(0);
-			  line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
+	  public static Shape[] getShapes(){
+		  return circles;
+	  }
+	  
+	  private void connectShapes(){
+		  for (int i = 0; i < circles.length; i++) {
+			  //for (int j = circles.length/2-1; j < circles.length; j++) {
+			  for (int j = 0; j < circles.length; j++) {
+				  strokeWeight(1);
+				  stroke(0);
+				  line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
+			  }
+		    }
+	  }
+	  
+	public void controlEvent(ControlEvent theEvent) {
+		  
+		  if(theEvent.isController()) { 
+			  if(theEvent.controller().name()=="Attract") {
+				  attractor = new AttractShape(attractor);
+			  }
 		  }
-	    }
-  }
+	}
 }
