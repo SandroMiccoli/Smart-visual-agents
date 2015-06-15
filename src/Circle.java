@@ -25,8 +25,8 @@ public class Circle implements Shape{
 		// All circles start at random position
 		this.pos = new PVector(parent.random(0+r,parent.width-r), parent.random(0+r,parent.height-r));
 		// All circles have a random positive speed
-		//this.speed = new PVector(parent.random(1,3),parent.random(1,3));
-		this.speed = new PVector(0,0);
+		this.speed = new PVector(parent.random(-2,2),parent.random(-2,2));
+		//this.speed = new PVector(0,0);
 		this.acc = new PVector(0,0);
 		// For now, all circles have same mass and gravity
 		this.setGravity(10);
@@ -39,9 +39,9 @@ public class Circle implements Shape{
 		//parent.fill(255); // Color fill
 	    parent.noFill();
 		//parent.noStroke();
-	    parent.strokeWeight(1);
-	    parent.stroke(255);
-	    
+	    parent.strokeWeight(2);
+	    //parent.stroke(parent.random(255),parent.random(255),parent.random(255));
+	    parent.stroke(233);
 	    parent.ellipse(this.pos.x,this.pos.y,this.r,this.r);
 	    //parent.point(this.pos.x,this.pos.y);
 	}

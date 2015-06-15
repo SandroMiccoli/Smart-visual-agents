@@ -7,12 +7,11 @@ import controlP5.*;
 public class DecoratorTest extends PApplet {
   //	An array of circles
 	
-  private static Shape[] circles = new Shape[15];
+  private static Shape[] circles = new Shape[12];
   
   P5ControlPanel controlP5;
   
-  Shape attractor;  
-  Shape repeller;
+  Shape attractor;
 
   public void setup() {
     size(600,600);
@@ -26,14 +25,9 @@ public class DecoratorTest extends PApplet {
      circles[i] = new Circle(this);
     }
     
-    //Add "repel" behaviour to all circles...
-    for (int i = 0; i < circles.length; i++) {
-      Shape c = new RepelShape(circles[i],1);
-      circles[i] = c;
-  	}
-
     attractor = new Circle(this);
     attractor.setPos(new PVector(width/2,height/2));
+    attractor.setSpeed(new PVector(0,0));
   }
 
   public void draw() {
@@ -66,6 +60,7 @@ public class DecoratorTest extends PApplet {
 			  for (int j = i; j < circles.length; j++) {
 				  strokeWeight(1);
 				  stroke(0);
+ 			      //stroke(random(255),random(255),random(255));
 				  line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
 			  }
 		    }
@@ -76,6 +71,13 @@ public class DecoratorTest extends PApplet {
 		if(theEvent.isController()) { 
 			if(theEvent.controller().name()=="Attract") {
 				attractor = new AttractShape(attractor);
+			}
+			if(theEvent.controller().name()=="Repel") {
+			    //Add "repel" behaviour to all circles...
+			    for (int i = 0; i < circles.length; i++) {
+			      circles[i] = new RepelShape(circles[i],1);;
+			  	}
+
 			}
 		}
 	}

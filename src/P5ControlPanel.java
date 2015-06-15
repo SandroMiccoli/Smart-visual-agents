@@ -39,7 +39,8 @@ public class P5ControlPanel extends PApplet {
 		//controlP5.addSlider("Size",20,200,1,10,80,10,100);
 		controlP5.addToggle("Vectors",false,10,10,20,20);
 		controlP5.addToggle("Connect",false,10,50,20,20);    
-		controlP5.addBang("Attract",10,90,20,20);
+		controlP5.addBang("Attract",10,90,20,20);    
+		controlP5.addBang("Repel",10,130,20,20);
 
 		//Slider s = controlP5.addSlider("TRAIL",0,255,128,70,80,100,10);
 		// change sliderMode of the Slider object. The default is Slider.FIX
