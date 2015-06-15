@@ -35,10 +35,11 @@ public class P5ControlPanel extends PApplet {
 		//controlP5.addSlider("COLOR_1",0,255,128,10,80,10,100);
 		//controlP5.addSlider("COLOR_2",0,255,128,10,200,10,100);
 		//controlP5.addSlider("Repel",0,20,1,10,200,10,100);
-		controlP5.addKnob("Size",10,250,50,80,10,60);
+		controlP5.addKnob("Size",10,250,30,80,10,60);
 		//controlP5.addSlider("Size",20,200,1,10,80,10,100);
 		controlP5.addToggle("Vectors",false,10,10,20,20);
-		controlP5.addToggle("Connect",false,10,50,20,20);    
+		controlP5.addToggle("Connect",false,10,50,20,20);
+		controlP5.addBang("Reset", 10,170,20,20);
 		controlP5.addBang("Attract",10,90,20,20);    
 		controlP5.addBang("Repel",10,130,20,20);
 

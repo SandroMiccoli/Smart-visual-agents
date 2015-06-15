@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import processing.core.*;
 
 // Simple Circle Class
@@ -14,6 +16,10 @@ public class Circle implements Shape{
 	private  float gravity; // circle gravity
 	private float mass; // circle mass
 	float d;  //distance variable between particle and the target co-ordinates
+	
+	private int colourR;
+	private int colourG;
+	private int colourB;
   
 	
 	Circle(PApplet p) {
@@ -31,13 +37,19 @@ public class Circle implements Shape{
 		// For now, all circles have same mass and gravity
 		this.setGravity(10);
 		this.setMass(1*this.r);
+		
+		Random r = new Random();
+		colourR = r.nextInt(255);
+		colourG = r.nextInt(255);
+		colourB = r.nextInt(255);
 	}
 
 	// Draw circle
 	public void display() {
 	
-		//parent.fill(255); // Color fill
-	    parent.noFill();
+//		Random r = new Random();
+		parent.fill(colourR, colourG, colourB, 150); // Color fill
+//	    parent.noFill();
 		//parent.noStroke();
 	    parent.strokeWeight(2);
 	    //parent.stroke(parent.random(255),parent.random(255),parent.random(255));
