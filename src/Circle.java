@@ -14,9 +14,11 @@ public class Circle implements Shape{
 	private  float gravity; // circle gravity
 	private float mass; // circle mass
 	float d;  //distance variable between particle and the target co-ordinates
+	private int colour;
   
 	
-	Circle(PApplet p) {
+	Circle(PApplet p, int colour) {
+		this.colour = colour;
 		this.parent = p;
 		    
 		// random size
@@ -35,7 +37,7 @@ public class Circle implements Shape{
 	// Draw circle
 	public void display() {
 	
-		parent.fill(255); // Color fill
+		parent.fill(colour); // Color fill
 	    parent.noStroke();
 	    parent.stroke(255);
 	    

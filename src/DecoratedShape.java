@@ -80,5 +80,4 @@ public class DecoratedShape implements Shape {
 	public void setMass(float mass) {
 		privateShape.setMass(mass);
 	}
-
 }
