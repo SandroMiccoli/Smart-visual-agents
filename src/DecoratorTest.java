@@ -1,5 +1,4 @@
 
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -12,6 +11,7 @@ public class DecoratorTest extends PApplet {
   private static Shape[] circles = new Shape[50];
   private ArrayList<Shape> attractors;
   private ArrayList<Shape> reppelers;
+  private final int MAX_SHAPES = 15;
 
   public void setup() {
 	attractors = new ArrayList<Shape>();
@@ -49,13 +49,13 @@ public class DecoratorTest extends PApplet {
   }
   
   public void mouseClicked(MouseEvent e) {
-	if (e.getButton() == MouseEvent.BUTTON1) {
+	if (e.getButton() == MouseEvent.BUTTON1 && attractors.size() < MAX_SHAPES) {
     	Shape attractor = new Circle(this, 100);
     	attractor = new AttractShape(attractor);
     	attractor.setPos(new PVector(mouseX,mouseY));
     	attractors.add(attractor);
 	}
-	else if (e.getButton() == MouseEvent.BUTTON3) {
+	else if (e.getButton() == MouseEvent.BUTTON3 && reppelers.size() < MAX_SHAPES) {
 		Shape reppeler = new Circle(this, 200);
     	reppeler = new RepelShape(reppeler);
     	reppeler.setPos(new PVector(mouseX,mouseY));
