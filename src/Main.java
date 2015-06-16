@@ -84,16 +84,16 @@ public class Main extends PApplet {
 
 		pushMatrix();
 		noStroke();
-
 		/* Draw a rect over all elements with some alpha to create
 		 * a "trail" illusion									*/
-		fill(111,255-controlP5.getControllerValue("Trail"));
+		fill(191,255-controlP5.getControllerValue("Trail"));
 		rect(0,0,width,height);
+		popMatrix();
 
 		mainAttractor.run();
 
 		// Display and move all circles
-		for (int i = 0; i < circles.length; i++) {
+		for (int i = 0; i < CURRENT_CIRCLES; i++) {
 			circles[i].run();
 			// sets size and repel intensity according to controller
 			circles[i].setR(controlP5.getControllerValue("Size"));
@@ -126,8 +126,8 @@ public class Main extends PApplet {
 		for (int i = 0; i < CURRENT_CIRCLES; i++) {
 			//for (int j = circles.length/2-1; j < circles.length; j++) {
 			for (int j = i; j < CURRENT_CIRCLES; j++) {
-				strokeWeight(1);
-				stroke(0);
+				strokeWeight(2);
+				stroke(0,10);
 				//stroke(random(255),random(255),random(255));
 				line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
 			}
@@ -136,12 +136,12 @@ public class Main extends PApplet {
 
 	// ===========================================================
 	// both attract and repel button behaviors
-	private void addButtonBehavior() {
+	public void addButtonBehavior() {
 		if(CURRENT_CIRCLES < circles.length)
 			CURRENT_CIRCLES++;
 	}
 
-	private void removeButtonBehavior() {
+	public void removeButtonBehavior() {
 		if (CURRENT_CIRCLES > 5)
 			CURRENT_CIRCLES--;
 	}

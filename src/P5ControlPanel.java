@@ -26,7 +26,7 @@ public class P5ControlPanel extends PApplet {
 		controlP5.setColorValue(0xffff88ff);
 		controlP5.setColorActive(0xffff0000);
 
-		controlP5.addKnob("Size",10,100,30,80,10,60);
+		controlP5.addKnob("Size",1,100,30,80,10,60);
 		controlP5.addKnob("RepelIntensity",1,10,1,80,90,60);
 		controlP5.addSlider("Trail",100,255,100,10,220,10,100);
 		controlP5.addToggle("Vectors",false,10,10,20,20);
@@ -34,7 +34,7 @@ public class P5ControlPanel extends PApplet {
 		controlP5.addBang("Reset", 10,170,20,20);
 		controlP5.addBang("Attract",10,90,20,20);
 		controlP5.addBang("Repel",10,130,20,20);
-    controlP5.addBang("Add",source.width-100,10,20,20);
+		controlP5.addBang("Add",source.width-100,10,20,20);
 		controlP5.addBang("Remove",source.width-50,10,20,20);
 	}
 
@@ -65,17 +65,22 @@ public class P5ControlPanel extends PApplet {
 
 				if(theEvent.getAction()==controlP5.ACTION_PRESSED) {
 
-					switch (theEvent.getController().getLabel()) {
-
-					case("Reset"):
-						Main.getInstance().reset();
-					break;
-					case("Attract"):
-						Main.getInstance().attractButton();
-					break;
-					case("Repel"):
-						Main.getInstance().repelButton();
-					break;
+						switch (theEvent.getController().getLabel()) {
+							case("Reset"):
+								Main.getInstance().reset();
+								break;
+							case("Attract"):
+								Main.getInstance().attractButton();
+								break;
+							case("Repel"):
+								Main.getInstance().repelButton();
+								break;
+							case("Add"):
+								Main.getInstance().addButtonBehavior();
+								break;
+							case("Remove"):
+								Main.getInstance().removeButtonBehavior();
+								break;
 					}
 				}
 			}

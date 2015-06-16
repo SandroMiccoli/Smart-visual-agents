@@ -1,7 +1,5 @@
 import java.util.Random;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
-
 import processing.core.*;
 
 // Simple Circle Class
@@ -63,7 +61,7 @@ public class Circle implements Shape{
 		allColors[4][2] = 81;
 		
 		Random r = new Random();
-		int c = r.nextInt(4);
+		int c = r.nextInt(5);
 		colourR = allColors[c][0];
 		colourG = allColors[c][1];
 		colourB = allColors[c][2];
@@ -78,10 +76,10 @@ public class Circle implements Shape{
 		parent.fill(colourR, colourG, colourB, 150); // Color fill
 		//parent.fill(allColors[0][0],allColors[0][1],allColors[0][2]);
 //	    parent.noFill();
-		//parent.noStroke();
-	    parent.strokeWeight((float) 0.5);
+		parent.noStroke();
+	    //parent.strokeWeight((float) 0.5);
 	    //parent.stroke(parent.random(255),parent.random(255),parent.random(255));
-	    parent.stroke(233);
+	    //parent.stroke(233);
 	    parent.ellipse(this.pos.x,this.pos.y,this.r,this.r);
 	    //parent.point(this.pos.x,this.pos.y);
 	}
