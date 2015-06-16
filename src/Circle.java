@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
+
 import processing.core.*;
 
 // Simple Circle Class
@@ -17,9 +19,11 @@ public class Circle implements Shape{
 	private float mass; // circle mass
 	float d;  //distance variable between particle and the target co-ordinates
 	
+	
 	private int colourR;
 	private int colourG;
 	private int colourB;
+	private int [][] allColors = new int[5][3]; // Five colors with the RGB of each
   
 	
 	Circle(PApplet p) {
@@ -37,11 +41,34 @@ public class Circle implements Shape{
 		// For now, all circles have same mass and gravity
 		this.setGravity(10);
 		this.setMass(1*this.r);
+
+		allColors[0][0] = 0;
+		allColors[0][1] = 160;
+		allColors[0][2] = 176;
+		
+		allColors[1][0] = 106;
+		allColors[1][1] = 74;
+		allColors[1][2] = 60;
+		
+		allColors[2][0] = 204;
+		allColors[2][1] = 51;
+		allColors[2][2] = 63;
+		
+		allColors[3][0] = 235;
+		allColors[3][1] = 104;
+		allColors[3][2] = 65;
+		
+		allColors[4][0] = 237;
+		allColors[4][1] = 201;
+		allColors[4][2] = 81;
 		
 		Random r = new Random();
-		colourR = r.nextInt(255);
-		colourG = r.nextInt(255);
-		colourB = r.nextInt(255);
+		int c = r.nextInt(4);
+		colourR = allColors[c][0];
+		colourG = allColors[c][1];
+		colourB = allColors[c][2];
+		
+		
 	}
 
 	// Draw circle
@@ -49,6 +76,7 @@ public class Circle implements Shape{
 	
 //		Random r = new Random();
 		parent.fill(colourR, colourG, colourB, 150); // Color fill
+		//parent.fill(allColors[0][0],allColors[0][1],allColors[0][2]);
 //	    parent.noFill();
 		//parent.noStroke();
 	    parent.strokeWeight((float) 0.5);

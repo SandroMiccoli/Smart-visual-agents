@@ -36,8 +36,8 @@ public class P5ControlPanel extends PApplet {
 		//controlP5.addSlider("COLOR_2",0,255,128,10,200,10,100);
 		
 		controlP5.addKnob("Size",10,250,30,80,10,60);
-		controlP5.addKnob("RepelIntensity",1,5,1,80,90,60);
-		controlP5.addSlider("Trail",0,255,10,10,220,10,100);
+		controlP5.addKnob("RepelIntensity",1,10,1,80,90,60);
+		controlP5.addSlider("Trail",100,255,100,10,220,10,100);
 		controlP5.addToggle("Vectors",false,10,10,20,20);
 		controlP5.addToggle("Connect",false,10,50,20,20);
 		controlP5.addBang("Reset", 10,170,20,20);
