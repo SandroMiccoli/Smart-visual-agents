@@ -24,9 +24,7 @@ public class Circle implements Shape{
 	
 	Circle(PApplet p) {
 		this.parent = p;
-		    
-		// random size
-		//this.r = parent.random(15,35);
+
 		this.r = 150;
 		// All circles start at random position
 		this.pos = new PVector(parent.random(0+r,parent.width-r), parent.random(0+r,parent.height-r));
@@ -44,18 +42,19 @@ public class Circle implements Shape{
 		colourB = r.nextInt(255);
 	}
 
-	// Draw circle
+	// Draw ellipse (circle)
 	public void display() {
 	
-//		Random r = new Random();
-		parent.fill(colourR, colourG, colourB, 150); // Color fill
-//	    parent.noFill();
-		//parent.noStroke();
-	    parent.strokeWeight(2);
-	    //parent.stroke(parent.random(255),parent.random(255),parent.random(255));
+		// color fill
+		parent.fill(colourR, colourG, colourB, 150); 
+		
+		// stroke border
+	    parent.strokeWeight(2); 
 	    parent.stroke(233);
+	    
+	    // draw ellipse
 	    parent.ellipse(this.pos.x,this.pos.y,this.r,this.r);
-	    //parent.point(this.pos.x,this.pos.y);
+
 	}
 	
 	public void drawVectors(){
@@ -79,8 +78,7 @@ public class Circle implements Shape{
 	  if (pos.y > parent.height - r || pos.y < 0+r) speed.y*=-1;
 	}
 
-	//main method that combines all previous methods, and takes two arguments
-	//tx and ty are inherited from forces(), and set the attractive/repulsive co-ords
+	//main method that combines all previous methods and makes the simulation happen
 	public void run(){
 		display();
 		move();
