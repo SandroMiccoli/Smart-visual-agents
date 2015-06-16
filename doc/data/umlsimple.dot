@@ -1,0 +1,161 @@
+digraph G {
+        
+        nodesep=.05;
+        ranksep=.8;
+        rankdir=LR;
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+
+        node [
+                group = a
+                fontname = "Bitstream Vera Sans"
+                fontsize = 8
+                shape = "record"
+        ]
+
+
+        edge [
+                fontname = "Bitstream Vera Sans"
+                fontsize = 8
+        ]
+
+        subgraph clusterPackDefault
+         {
+                label = "Package default"
+                MainClass [
+                        label = "{MainClass}"
+                ]
+        }
+
+        subgraph clusterCardDeck {
+                label = "Package CardDeck"
+
+                Card [
+                        label = "{Card}"
+                ]
+
+                CardCombination [
+                        label = "{CardCombination}"
+                ]
+
+                Deck [
+                        label = "{Deck}"
+                ]
+        }
+
+        subgraph clusterGame {
+                label = "Package Game"
+
+                BigTwo [
+                        label = "{BigTwo}"
+                ]
+                Player [
+                        label = "{Player}"
+                ]
+        }
+
+        subgraph clusterGameStates {
+                label = "Package GameStates"
+
+                Create [
+                        label = "{CreateCombinationState}"
+                ]
+                End [
+                        label = "{EndOfGameState}"
+                ]
+                GameState [
+                        label = "{GameState}"
+                ]
+                ListActions [
+                        label = "{ListActionsState}"
+                ]
+                
+                ListStartRoundActions [
+                        label = "{ListStartActionsRoundState}"
+                ]
+
+                NextPlayer [
+                        label = "{NextPlayerState}"
+                ]
+                
+                StartGame [
+                        label = "{StartGameState}"
+                ]
+                WaitCombination [
+                        label = "{WaitForCombinationState}"
+                ]
+                
+                edge [
+                        arrowhead = "empty"
+                        style = "dotted"
+                ]
+
+                Create -> GameState
+                End -> GameState
+                ListActions -> GameState
+                NextPlayer -> GameState
+                StartGame -> GameState
+                WaitCombination -> GameState
+
+                edge [
+                        arrowhead = "empty"
+                        style = "solid"
+                ]
+                ListStartRoundActions -> ListActions
+
+
+        }
+    
+    edge [
+        arrowhead = "open"
+        label = "-state"
+        headlabel = "0..1"
+    ]
+    BigTwo -> GameState
+    edge [
+        label = "-currentCombination"
+    ]
+    BigTwo -> CardCombination
+    edge [
+        label = "-deck"
+    ]
+    BigTwo -> Deck
+    edge [
+        label = "-player"
+    ]
+    BigTwo -> Player
+    edge [
+        label = "-currentPlayer"
+    ]
+    BigTwo -> Player
+    edge [
+        label = "-ownerOfLastCombination"
+    ]
+    BigTwo -> Player
+    edge [
+        label = "-hand"
+        headlabel = "0..13"
+    ]
+    Player -> Card
+    edge [
+        label = "-highestCard"
+        headlabel = "0..1"
+    ]
+    CardCombination -> Card
+    edge [
+        label = "-combination"
+        headlabel = "0..*"
+    ]
+    CardCombination -> Card
+    edge [
+        label = "-cards"
+        headlabel = "0..52"
+    ]
+    Deck -> Card
+    edge [
+        label = "-combination"
+        headlabel = "0..*"
+    ]
+    Create -> CardCombination
+
+}       
