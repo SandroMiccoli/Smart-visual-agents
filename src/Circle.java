@@ -27,7 +27,7 @@ public class Circle implements Shape{
 		    
 		// random size
 		//this.r = parent.random(15,35);
-		this.r = 150;
+		this.r = 5;
 		// All circles start at random position
 		this.pos = new PVector(parent.random(0+r,parent.width-r), parent.random(0+r,parent.height-r));
 		// All circles have a random positive speed
@@ -51,7 +51,7 @@ public class Circle implements Shape{
 		parent.fill(colourR, colourG, colourB, 150); // Color fill
 //	    parent.noFill();
 		//parent.noStroke();
-	    parent.strokeWeight(2);
+	    parent.strokeWeight((float) 0.5);
 	    //parent.stroke(parent.random(255),parent.random(255),parent.random(255));
 	    parent.stroke(233);
 	    parent.ellipse(this.pos.x,this.pos.y,this.r,this.r);
@@ -127,6 +127,12 @@ public class Circle implements Shape{
 
 	public void setMass(float mass) {
 		this.mass = mass;
+	}
+
+	@Override
+	public void setAmount(float amount) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

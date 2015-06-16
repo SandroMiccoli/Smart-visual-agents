@@ -24,7 +24,7 @@ public class P5ControlPanel extends PApplet {
 		// change the original colors
 		controlP5.setColorForeground(0xffaa0000);
 		controlP5.setColorBackground(0xff660000);
-		controlP5.setColorLabel(0xffdddddd);
+		controlP5.setColorLabel(0x00000000);
 		controlP5.setColorValue(0xffff88ff);
 		controlP5.setColorActive(0xffff0000);
 
@@ -34,9 +34,10 @@ public class P5ControlPanel extends PApplet {
 		//controlP5.addToggle("FROZEN?",false,170,10,20,20);    
 		//controlP5.addSlider("COLOR_1",0,255,128,10,80,10,100);
 		//controlP5.addSlider("COLOR_2",0,255,128,10,200,10,100);
-		//controlP5.addSlider("Repel",0,20,1,10,200,10,100);
+		
 		controlP5.addKnob("Size",10,250,30,80,10,60);
-		//controlP5.addSlider("Size",20,200,1,10,80,10,100);
+		controlP5.addKnob("RepelIntensity",1,5,1,80,90,60);
+		controlP5.addSlider("Trail",0,255,10,10,220,10,100);
 		controlP5.addToggle("Vectors",false,10,10,20,20);
 		controlP5.addToggle("Connect",false,10,50,20,20);
 		controlP5.addBang("Reset", 10,170,20,20);

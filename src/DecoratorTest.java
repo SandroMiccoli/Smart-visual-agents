@@ -13,7 +13,7 @@ import controlP5.*;
 public class DecoratorTest extends PApplet {
   //	An array of circles
 	
-  private static Shape[] circles = new Shape[20];
+  private static Shape[] circles = new Shape[12];
   
   private final int MAX_SHAPES = 10;
   private ArrayList<Shape> attractors;
@@ -60,11 +60,18 @@ public class DecoratorTest extends PApplet {
 
   public synchronized void draw() {
 	  
-    background(100,10);
+    //background(100,10);
+	// Draw a rect over all elements with some alpha to create a "trail" illusion
+    fill(111,255-controlP5.getControllerValue("Trail"));
+    rect(0,0,width,height);
+
+    mainAttractor.run();
+    
     // Move and display all circles
     for (int i = 0; i < circles.length; i++) {
       circles[i].run();
       circles[i].setR(controlP5.getControllerValue("Size"));
+      circles[i].setAmount(controlP5.getControllerValue("RepelIntensity"));
       
       if(controlP5.getControllerValue("Vectors")==1)
     	  circles[i].drawVectors();
@@ -74,7 +81,6 @@ public class DecoratorTest extends PApplet {
     if(controlP5.getControllerValue("Connect")==1)
     	connectShapes();
     
-    mainAttractor.run();
     
     for (Shape attrac : attractors) {
     	attrac.run();
@@ -86,22 +92,22 @@ public class DecoratorTest extends PApplet {
   }
  
   
-	  public static Shape[] getShapes(){
-		  return circles;
-	  }
-	  
-	  private void connectShapes(){
-		  for (int i = 0; i < circles.length; i++) {
-			  //for (int j = circles.length/2-1; j < circles.length; j++) {
-			  for (int j = i; j < circles.length; j++) {
-				  strokeWeight(1);
-				  stroke(0);
- 			      //stroke(random(255),random(255),random(255));
-				  line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
-			  }
-		    }
-	  }
-	  
+  public static Shape[] getShapes(){
+	  return circles;
+  }
+  
+  private void connectShapes(){
+	  for (int i = 0; i < circles.length; i++) {
+		  //for (int j = circles.length/2-1; j < circles.length; j++) {
+		  for (int j = i; j < circles.length; j++) {
+			  strokeWeight(1);
+			  stroke(0);
+		      //stroke(random(255),random(255),random(255));
+			  line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
+		  }
+	    }
+  }
+  
 	public void controlEvent(ControlEvent theEvent) {
 		  
 		if(theEvent.isController()) { 
@@ -136,7 +142,7 @@ public class DecoratorTest extends PApplet {
 		}
 		else if (e.getKeyChar() == KeyEvent.VK_ENTER && reppelers.size() < MAX_SHAPES) {
 			Shape reppeler = new Circle(this);
-	    	reppeler = new RepelShape(reppeler, 1);
+	    	reppeler = new RepelShape(reppeler, 2);
 	    	reppeler.setPos(new PVector(r.nextInt(550) + 50,r.nextInt(550) + 50));
 	    	reppeler.setR(70);
 	    	reppelers.add(reppeler);

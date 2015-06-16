@@ -91,4 +91,9 @@ public class DecoratedShape implements Shape {
 		privateShape.setMass(mass);
 	}
 
+	@Override
+	public void setAmount(float amount) {
+		privateShape.setAmount(amount);
+	}
+
 }
