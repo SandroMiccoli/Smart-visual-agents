@@ -17,38 +17,34 @@ public class AttractShape extends DecoratedShape {
 		super(shapeReference);
 	}
 	
+	// attract behavior: attracts other shapes
 	@Override
 	public void run(){
 		attractOtherShapes();
 		super.run();
-
 	}
 	
+	/*  sends the location of all other shapes
+	 *	to each shape and make them attract each other */
 	private void attractOtherShapes(){
-		Shape[] allShapes = DecoratorTest.getShapes();
+		
+		Shape[] allShapes = Main.getShapes();
+		
 		for (int i = 0; i < allShapes.length; i++) {
-			//allShapes[i].getPos().lerp(this.getPos(), (float) 0.5);
 			forces(allShapes[i]);
 			
 		}
 	}
 
+	/* this function applies more attraction force    
+	 * every time it is called */
 	public void forces(Shape targetLoc){
+		
 	    PVector dir = PVector.sub(targetLoc.getPos(),this.getPos());  //calculate the direction between a particle and targetLoc
 	    float d = dir.mag();  //calculate how far away the particle is from targetLoc
 	    dir.normalize();  //convert the measurement to a unit vector
 	    dir.mult((float)-0.5);
-	    
-	    //calculate the strength of the force by factoring in a gravitational constant and the mass of a particle
-	    //multiply by distance^2
-	    //float force = (this.getGravity()*this.getMass()) / (d*d);
-	    //dir.mult(force);
-	    //if (d<15)
-	    //	force=0;
-	    
-	    //dir.mult(force);
-	    
-		//dir.div(targetLoc.getMass());
+
 		targetLoc.getSpeed().add(dir);
 	}
 

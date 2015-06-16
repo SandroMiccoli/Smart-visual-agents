@@ -1,7 +1,7 @@
 import processing.core.PVector;
 
 /*
- * Interface for a Shape object
+ * Interface for every Shape object
  */
 
 public interface Shape {
