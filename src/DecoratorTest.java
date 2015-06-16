@@ -22,6 +22,7 @@ public class DecoratorTest extends PApplet {
   private Shape mainAttractor;
   
   P5ControlPanel controlP5;
+  private boolean hide = false;
   
 //  Shape attractor;
 
@@ -62,9 +63,11 @@ public class DecoratorTest extends PApplet {
 	  
     //background(100,10);
 	// Draw a rect over all elements with some alpha to create a "trail" illusion
-    fill(111,255-controlP5.getControllerValue("Trail"));
+	pushMatrix();
+	noStroke();
+    fill(155,255-controlP5.getControllerValue("Trail"));
     rect(0,0,width,height);
-
+    popMatrix();
     mainAttractor.run();
     
     // Move and display all circles
@@ -146,6 +149,19 @@ public class DecoratorTest extends PApplet {
 	    	reppeler.setPos(new PVector(r.nextInt(550) + 50,r.nextInt(550) + 50));
 	    	reppeler.setR(70);
 	    	reppelers.add(reppeler);
+		}
+		else if (e.getKeyChar() == KeyEvent.VK_1) {
+			if (hide){
+				controlP5.hide();
+				hide = false;
+			}
+			else{
+				controlP5.show();
+				hide = true;
+			}
+		}
+		else if (e.getKeyChar() == KeyEvent.VK_2) {
+			
 		}
 	}
 	

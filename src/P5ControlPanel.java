@@ -89,5 +89,13 @@ public class P5ControlPanel extends PApplet {
 	public float getControllerValue(String c){
 		return controlP5.controller(c).value();
 	}
+
+	public void hide(){
+		controlP5.hide();
+	}
+	
+	public void show(){
+		controlP5.show();
+	}
 	
 }
