@@ -35,7 +35,7 @@ public class P5ControlPanel extends PApplet {
 		//controlP5.addSlider("COLOR_1",0,255,128,10,80,10,100);
 		//controlP5.addSlider("COLOR_2",0,255,128,10,200,10,100);
 		
-		controlP5.addKnob("Size",10,250,30,80,10,60);
+		controlP5.addKnob("Size",10,100,30,80,10,60);
 		controlP5.addKnob("RepelIntensity",1,10,1,80,90,60);
 		controlP5.addSlider("Trail",100,255,100,10,220,10,100);
 		controlP5.addToggle("Vectors",false,10,10,20,20);
@@ -43,6 +43,8 @@ public class P5ControlPanel extends PApplet {
 		controlP5.addBang("Reset", 10,170,20,20);
 		controlP5.addBang("Attract",10,90,20,20);    
 		controlP5.addBang("Repel",10,130,20,20);
+		controlP5.addBang("Add",source.width-100,10,20,20);    
+		controlP5.addBang("Remove",source.width-50,10,20,20);
 
 		//Slider s = controlP5.addSlider("TRAIL",0,255,128,70,80,100,10);
 		// change sliderMode of the Slider object. The default is Slider.FIX

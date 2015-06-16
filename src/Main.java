@@ -10,12 +10,12 @@ import controlP5.*;
 
 
 
-public class DecoratorTest extends PApplet {
+public class Main extends PApplet {
   //	An array of circles
-	
-  private static Shape[] circles = new Shape[12];
+  private static Shape[] circles = new Shape[30]; // Max amount of circles
   
   private final int MAX_SHAPES = 10;
+  private int CURRENT_CIRCLES = 9;
   private ArrayList<Shape> attractors;
   private ArrayList<Shape> reppelers;
   
@@ -65,13 +65,14 @@ public class DecoratorTest extends PApplet {
 	// Draw a rect over all elements with some alpha to create a "trail" illusion
 	pushMatrix();
 	noStroke();
-    fill(155,255-controlP5.getControllerValue("Trail"));
+    fill(185,255-controlP5.getControllerValue("Trail"));
     rect(0,0,width,height);
     popMatrix();
+    
     mainAttractor.run();
     
     // Move and display all circles
-    for (int i = 0; i < circles.length; i++) {
+    for (int i = 0; i < CURRENT_CIRCLES; i++) {
       circles[i].run();
       circles[i].setR(controlP5.getControllerValue("Size"));
       circles[i].setAmount(controlP5.getControllerValue("RepelIntensity"));
@@ -100,9 +101,9 @@ public class DecoratorTest extends PApplet {
   }
   
   private void connectShapes(){
-	  for (int i = 0; i < circles.length; i++) {
+	  for (int i = 0; i < CURRENT_CIRCLES; i++) {
 		  //for (int j = circles.length/2-1; j < circles.length; j++) {
-		  for (int j = i; j < circles.length; j++) {
+		  for (int j = i; j < CURRENT_CIRCLES; j++) {
 			  strokeWeight(1);
 			  stroke(0);
 		      //stroke(random(255),random(255),random(255));
@@ -130,6 +131,12 @@ public class DecoratorTest extends PApplet {
 			if(theEvent.controller().name()=="Reset") {
 				reset();
 			}
+			if(theEvent.controller().name()=="Add" && CURRENT_CIRCLES<circles.length) {
+				CURRENT_CIRCLES++;
+			}
+			if(theEvent.controller().name()=="Remove" && CURRENT_CIRCLES>5) {
+				CURRENT_CIRCLES--;
+			}
 		}
 	}
 	
@@ -150,7 +157,7 @@ public class DecoratorTest extends PApplet {
 	    	reppeler.setR(70);
 	    	reppelers.add(reppeler);
 		}
-		else if (e.getKeyChar() == KeyEvent.VK_1) {
+		else if (e.getKeyChar() == KeyEvent.VK_TAB) {
 			if (hide){
 				controlP5.hide();
 				hide = false;
@@ -161,7 +168,14 @@ public class DecoratorTest extends PApplet {
 			}
 		}
 		else if (e.getKeyChar() == KeyEvent.VK_2) {
-			
+			System.out.println(CURRENT_CIRCLES);
+			if (CURRENT_CIRCLES<circles.length)
+				CURRENT_CIRCLES++;
+		}
+		else if (e.getKeyChar() == KeyEvent.VK_1) {
+			System.out.println(CURRENT_CIRCLES);
+			if (CURRENT_CIRCLES>5)
+				CURRENT_CIRCLES--;
 		}
 	}
 	
