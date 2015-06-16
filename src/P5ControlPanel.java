@@ -6,13 +6,13 @@ import controlP5.*;
 import processing.core.*;
 
 public class P5ControlPanel extends PApplet {
-	
+
 	class Info {
 		  float a;
 		  float n = 0;
 		  String txt = "";
 		  Textarea label;
-		  
+
 		  Info() {
 		    label = controlP5.addTextarea("Hello\nWorld")
 		               .setSize(200,200)
@@ -20,9 +20,9 @@ public class P5ControlPanel extends PApplet {
 		               .setColor(color(255))
 		               .setColorBackground(color(100,0))
 		               .setLineHeight(12);
-		                   
+
 		  }
-		  
+
 		  void update() {
 		    a += (n-a)*0.1;
 		    label.setColorBackground(color(100,255*a));
@@ -37,12 +37,12 @@ public class P5ControlPanel extends PApplet {
 	private static ControlP5 controlP5;
 
 	protected P5ControlPanel(PApplet source) {
-		
+
 		CallbackListener cb;
 		Info info;
 
 		cb = new CallbackListener() {
-			
+
 			public void controlEvent(CallbackEvent theEvent) {
 				switch(theEvent.getAction()) {
 				case(ControlP5.ACTION_ENTER):
@@ -62,22 +62,24 @@ public class P5ControlPanel extends PApplet {
 		controlP5 = new ControlP5(source);
 
 		// change the default font to Verdana
-		PFont p = createFont("Verdana",9); 
+		PFont p = createFont("Verdana",9);
 		controlP5.setControlFont(p);
 
 		// change the original colors
 		controlP5.setColorForeground(0xffaa0000);
 		controlP5.setColorBackground(0xff660000);
-		controlP5.setColorLabel(0xffdddddd);
+		controlP5.setColorLabel(0x00000000);
 		controlP5.setColorValue(0xffff88ff);
 		controlP5.setColorActive(0xffff0000);
 
 		// adds each control element to the panel
 		controlP5.addKnob("Size",10,250,30,80,10,60);
+		controlP5.addKnob("RepelIntensity",1,5,1,80,90,60);
+		controlP5.addSlider("Trail",0,255,10,10,220,10,100);
 		controlP5.addToggle("Vectors",false,10,10,20,20);
 		controlP5.addToggle("Connect",false,10,50,20,20);
 		controlP5.addBang("Reset", 10,170,20,20);
-		controlP5.addBang("Attract",10,90,20,20);    
+		controlP5.addBang("Attract",10,90,20,20);
 		controlP5.addBang("Repel",10,130,20,20);
 	}
 
@@ -94,15 +96,15 @@ public class P5ControlPanel extends PApplet {
 	// handles each Control Event - forwarded here from the main class
 	public void controlEvent(ControlEvent theEvent) {
 
-		if(theEvent.isController()) { 
+		if(theEvent.isController()) {
 
 			print("control event from : "+theEvent.controller().name());
 			println(", value : "+theEvent.controller().value());
 
-			// clicking on bang1 sets toggle1 value to 1 (true)      
+			// clicking on bang1 sets toggle1 value to 1 (true)
 			if(theEvent.controller().name()=="Attract") {
 				System.out.println("yeap");
-				controlP5.controller("toggle1").setValue(1);     
+				controlP5.controller("toggle1").setValue(1);
 			}
 
 			if(theEvent.controller().name()=="Attract") {
@@ -118,7 +120,7 @@ public class P5ControlPanel extends PApplet {
 			}
 		}
 
-	}  
+	}
 
 	public synchronized void keyPressed(KeyEvent e) {
 		Random r = new Random();

@@ -1,15 +1,15 @@
 import processing.core.*;
 
 /**
- * 
+ *
  * Class that defines the "repel" behavior.
- * 
+ *
  * The object that's decorated with this class will repel other shapes.
- * 
+ *
  */
 
 public class RepelShape extends DecoratedShape {
-	
+
 	Shape ref;
 	float amount=1;
 
@@ -21,7 +21,7 @@ public class RepelShape extends DecoratedShape {
 		ref = shapeReference;
 		this.amount = amount;
 	}
-	
+
 	// repel behavior: will repel other shapes
 	@Override
 	public void run(){
@@ -29,9 +29,13 @@ public class RepelShape extends DecoratedShape {
 		super.run();
 
 	}
-	
+
 	/*  sends the location of all other shapes
 	 *	to each shape and make them repel each other */
+	public void setAmount(float amount){
+		this.amount = amount;
+	}
+
 	private void repelOtherShapes(){
 		Shape[] allShapes = Main.getShapes();
 		for (int i = 0; i < allShapes.length; i++) {
@@ -41,16 +45,16 @@ public class RepelShape extends DecoratedShape {
 		}
 	}
 
-	/* this function applies more repelling force    
+	/* this function applies more repelling force
 	 * every time it is called */
 	public void forces(Shape targetLoc){
 	    PVector dir = PVector.sub(targetLoc.getPos(),this.getPos());  //calculate the direction between a particle and targetLoc
 	    float d = dir.mag();  //calculate how far away the particle is from targetLoc
 	    dir.normalize();  //convert the measurement to a unit vector
-	    dir.mult((float)0.5*amount);
-		
+	    dir.mult((float)0.5);
+
 		// only apply forces if in a certain distance
-		if (d<targetLoc.getR()*2)
+		if (d<targetLoc.getR()*amount)
 			targetLoc.getSpeed().add(dir);
 	}
 

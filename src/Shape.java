@@ -21,5 +21,6 @@ public interface Shape {
 	public void setGravity(float gravity);
 	public float getMass();
 	public void setMass(float mass);
+	public void setAmount(float amount);
 	
 }
