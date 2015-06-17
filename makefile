@@ -1,5 +1,5 @@
 # Caminho dos arquivos
-JPATH = src
+JPATH = src/
 
 # Especifica o compilador
 JC = javac
@@ -17,22 +17,21 @@ JR = java
 RM = rm -f
 
 # Classe com metodo main
-MAIN = "src/" Main
+MAIN = Main
 
 # Dependencias externas
-#CP = jars/core.jar:jars/controlP5.jar
 JARS = jars/*
 
 # Compilação do programa e passos das ligações de dependências
 $(MAIN):
 	@echo ""
 	@echo "--- COMPILANDO PROGRAMA ---"
-	$(JC) $(JFLAGS) $(CP) "$(JARS)" $(JPATH)/*.java
+	$(JC) $(JFLAGS) $(CP) "$(JARS)" $(JPATH)*.java
 	@echo ""
 
 clean:
-	$(RM) $(JPATH)/*.class
+	$(RM) $(JPATH)*.class
 	clear
 
 run: $(MAIN)
-	$(JR) $(CP) ".:$(JARS)" $(MAIN)
+	$(JR) $(CP) ".:$(JARS):$(JPATH)" $(MAIN)
