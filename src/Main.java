@@ -1,14 +1,9 @@
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 import processing.core.*;
-import controlP5.*;
-
-
 
 public class Main extends PApplet {
 	// singleton instance of the main simulation object
@@ -35,9 +30,11 @@ public class Main extends PApplet {
 		 * at first run						  */
 		return mainInstanceSingleton;
 	}
+	
 	// ===========================================================
 	/*	 setup @Overrides a processing function. It's charged with
-	 *	 setting the whole simulation sketch up 	   			 */
+	 *	 setting the whole simulation sketch up 	 			*/
+	// ===========================================================
 	@Override
 	public void setup() {
 		/* sets up singleton instance to be recovered
@@ -65,6 +62,7 @@ public class Main extends PApplet {
 
 	// ===========================================================
 	// reset the whole sketch to factory settings
+	// ===========================================================
 	public void reset() {
 		attractors.clear();
 		reppelers.clear();
@@ -80,6 +78,7 @@ public class Main extends PApplet {
 
 	// ===========================================================
 	// responsible for redrawing the sketch simulation every cycle
+	// ===========================================================
 	public synchronized void draw() {
 
 		pushMatrix();
@@ -121,12 +120,15 @@ public class Main extends PApplet {
 	public static Shape[] getShapes(){
 		return circles;
 	}
-
+	
+	// ===========================================================
+	// draws lines between each circle shape
+	// ===========================================================
 	private void connectShapes(){
 		for (int i = 0; i < CURRENT_CIRCLES; i++) {
 			for (int j = i; j < CURRENT_CIRCLES; j++) {
 				strokeWeight(2);
-				//stroke(0,10);
+				// gets color from the color picker controller
 				stroke((controlP5.getPickerColor()));
 				
 				line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
@@ -135,7 +137,8 @@ public class Main extends PApplet {
 	}
 
 	// ===========================================================
-	// both attract and repel button behaviors
+	// handles calls to every toggle button on the painel
+	// ===========================================================
 	public void addButtonBehavior() {
 		if(CURRENT_CIRCLES < circles.length)
 			CURRENT_CIRCLES++;
@@ -161,6 +164,7 @@ public class Main extends PApplet {
 	//	 =========================================================
 	/*	 listens for key press from the "spacebar" or "enter" keys
 	 * 	 and handles creation of attracting or repelling shapes.*/
+	//   ===========================================================
 	public synchronized void keyPressed(KeyEvent e) {
 		Random r = new Random();
 

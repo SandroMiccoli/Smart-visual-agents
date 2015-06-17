@@ -36,12 +36,13 @@ public class AttractShape extends DecoratedShape {
 		}
 	}
 
+	// ===========================================================
 	/* this function applies more attraction force    
-	 * every time it is called */
+	 * every time it is called 									*/
+	// ===========================================================
 	public void forces(Shape targetLoc){
 		
 	    PVector dir = PVector.sub(targetLoc.getPos(),this.getPos());  //calculate the direction between a particle and targetLoc
-	    float d = dir.mag();  //calculate how far away the particle is from targetLoc
 	    dir.normalize();  //convert the measurement to a unit vector
 	    dir.mult((float)-0.5);
 

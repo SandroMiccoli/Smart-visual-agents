@@ -22,7 +22,9 @@ public class RepelShape extends DecoratedShape {
 		this.amount = amount;
 	}
 
+	// ===========================================================
 	// repel behavior: will repel other shapes
+	// ===========================================================
 	@Override
 	public void run(){
 		repelOtherShapes();
@@ -30,8 +32,10 @@ public class RepelShape extends DecoratedShape {
 
 	}
 
+	// ===========================================================
 	/*  sends the location of all other shapes
 	 *	to each shape and make them repel each other */
+	// ===========================================================
 	public void setAmount(float amount){
 		this.amount = amount;
 	}
@@ -45,8 +49,10 @@ public class RepelShape extends DecoratedShape {
 		}
 	}
 
+	// ===========================================================
 	/* this function applies more repelling force
-	 * every time it is called */
+	 * every time it is called									*/
+	// ===========================================================
 	public void forces(Shape targetLoc){
 	    PVector dir = PVector.sub(targetLoc.getPos(),this.getPos());  //calculate the direction between a particle and targetLoc
 	    float d = dir.mag();  //calculate how far away the particle is from targetLoc

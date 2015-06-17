@@ -3,10 +3,11 @@ import controlP5.*;
 import processing.core.*;
 
 public class P5ControlPanel {
-
+	
+	// ===========================================================
 	// ControlP5 Singleton - Instanciation, Setup and Event Controller
-
-	private static PApplet controlParent = null;
+	// ===========================================================
+	
 	private static P5ControlPanel instance = null;
 	private static ControlP5 controlP5;
 	ColorPicker cp;
@@ -45,8 +46,10 @@ public class P5ControlPanel {
 		controlP5.addBang("Add",source.width-100,10,20,20);
 		controlP5.addBang("Remove",source.width-50,10,20,20);
 	}
-
+	
+	// ===========================================================
 	// makes sure only one instance of the panel exists and is used
+	// ===========================================================
 	public static P5ControlPanel getInstance(PApplet source) {
 		if (instance == null) {
 			instance = new P5ControlPanel(source);
@@ -55,19 +58,25 @@ public class P5ControlPanel {
 		else
 			return instance;
 	}
-	
+	// ===========================================================
+	// returns value from color picker control
+	// ===========================================================
 	public int getPickerColor() {
 		return cp.getColorValue();
 	}
 
+	// ===========================================================
 	//returns values of controller elements.
+	// ===========================================================
 	public float getControllerValue(String c){
 		return controlP5.controller(c).value();
 	}
 
 
+	// ===========================================================
 	/*	 creates a callback listener so the panel knows about incoming
 	 *   control events												*/
+	// ===========================================================
 	private CallbackListener createCallBackListener() {
 		CallbackListener cb;
 
