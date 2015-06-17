@@ -2,7 +2,7 @@
 import controlP5.*;
 import processing.core.*;
 
-public class P5ControlPanel extends PApplet {
+public class P5ControlPanel {
 
 	// ControlP5 Singleton - Instanciation, Setup and Event Controller
 
@@ -16,7 +16,7 @@ public class P5ControlPanel extends PApplet {
 		controlP5.addCallback(createCallBackListener());
 
 		// change the default font to Verdana
-		PFont p = createFont("Verdana",9);
+		PFont p = source.createFont("Verdana",9);
 		controlP5.setControlFont(p);
 
 		// change the original colors

@@ -72,8 +72,6 @@ public class Main extends PApplet {
 		for (int i = 0; i < circles.length; i++) {
 			circles[i] = new Circle(this);
 		}
-		
-		background(191,255);
 
 		mainAttractor = new Circle(this);
 		mainAttractor.setPos(new PVector(width/2,height/2));
