@@ -8,6 +8,7 @@
 
 \documentclass[12pt]{article}
 \usepackage{sbc-template}
+\usepackage{float}
 \usepackage{graphicx}
 \usepackage{latexsym}
 \usepackage{changepage}   % for the adjustwidth environment
@@ -253,9 +254,34 @@ O desenvolvimento deste aplicativo passou por diversas fases até chegar ao esta
 que pode ser considerado bastante abstrato por alguns, não havia, inicialmente, uma ideia fixa de como seria o estado final do programa. Assim,
 seguem algumas imagens das primeiras versões e ideias que tivemos, que podem ser consideradas também como testes para descobrirmos os potenciais
 que poderiamos atingir, além de servir como motivação para a evolução incremental da ideia.
-\begin{figure}[h]
-  \includegraphics[scale=0.5]{experimentTest}
-  \caption{a nice plot}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{firstver}
+    \caption{v0.1}
+  \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{secondver}
+    \caption{v0.5}
+    \end{minipage}%
+\end{figure}
+    
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{experiment}
+    \caption{v0.8}
+  \end{minipage}%
+  \begin{minipage}{.5\textwidth}
+    \centering
+    \includegraphics[scale=0.35]{thirdver}
+    \caption{v1.0}
+    \end{minipage}%
 \end{figure}
 
 \section{Conclusão}
