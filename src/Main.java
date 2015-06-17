@@ -199,6 +199,10 @@ public class Main extends PApplet {
 			if (CURRENT_CIRCLES>5)
 				CURRENT_CIRCLES--;
 		}
+		else if (e.getKeyChar() == KeyEvent.VK_P) { // To use: SHIFT+P
+			System.out.println("Print saved!");
+			saveFrame("Screen########.png");
+		}
 	}
 
 }

@@ -53,7 +53,6 @@ digraph G {
         RepelShape -> DecoratedShape [arrowhead="empty"]
 
         Main -> PApplet [arrowhead="empty"]
-        P5ControlPanel -> PApplet [arrowhead="empty"]
 
         Main -> Shape [arrowhead="odiamond", headlabel = "51", taillabel = "1"]
 
