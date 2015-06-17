@@ -44,7 +44,7 @@ public class Main extends PApplet {
 		attractors = new ArrayList<Shape>();
 		reppelers  = new ArrayList<Shape>();
 
-		size(600,600);
+		size(1000,700);
 
 		// gets singleton
 		controlP5 = P5ControlPanel.getInstance(this);
