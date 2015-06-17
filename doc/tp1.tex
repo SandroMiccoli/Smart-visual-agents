@@ -34,7 +34,7 @@
 \title{Programação Modular \\ Trabalho Final \\ Visualização Interativa de Agentes Inteligentes}
 
 \author{Daniel Diniz - 2008046090 - daniel.diniz@dcc.ufmg.br\\
-		Diogo Santana - 2011054308 - diogo.santana@dcc.ufmg.br\\
+		Diogo Santana - 2011054308 - diogo.marques@dcc.ufmg.br\\
 		Frederico Figueiredo - 2010054371 - fredfig@dcc.ufmg.br\\
 		Sandro Miccoli - 2009052409 - smiccoli@dcc.ufmg.br}
 
@@ -134,29 +134,28 @@ Essa subseção irá listar todas as possíveis combinações de jogo.
 
 \end{description}
 
+\begin{comment}
 \section{Implementação}
 \label{implementacao}
 
-Após gerar o diagrama UML que indicava quais classes precisariam ser implementadas, foi definida como seria montada a estrutura de dados do programa. Abaixo, na Figura \ref{uml}, é possível ver uma versão simplificada do diagrama de classes do sistema implementado. Simplificada pois não contém nenhuma informação de atributos ou métodos, apenas de relacionamento entre classes e pacotes. Isso foi feito para não poluir a documentação com um diagrama tão complexo. A seguir também é possível ver o diagrama de atividades (Figura \ref{activity}) do fluxo do programa. Ao final deste documento é possível ver o diagrama de classes completo (Figura \ref{umlfull}).
+Foram utilizados neste sistema os padrões de projeto Singleton e Decorator, de modo a garantir uma melhor modularização do código. O primeiro foi utilizado para assegurar uma única instância da classe responsável pela apresentação gráfica do sistema, a qual foi implementada na classe Main por meio da extensão da classe PApplet. O padrão Decorator foi implementado visando evitar alterações no código base da API Processing, garantindo a estabilidade do código, mas permitindo a extensão de funcionalidade por meio da extensão de interfaces.
+
+A interface a ser decorada (Shape) representa uma forma geométrica, a qual pode ser extendida para uma infinidade de formas diferentes. Neste projeto foi implementado apenas a forma Circle, a qual é afetada pelas forças de atração e repulsão implementadas. Tais forças foram representadas como classes extendidas da classe DecoratorShape, adicionando funcionalidade à interface Shape. Finalmente, a interface gráfica do sistema é implementado pela classe Main, a qual herda as funcionalidades da classe PApplet e utiliza o painel de controle implementado na classe P5ControlPanel.
+
+Segue o diagrama de classes simplificado do sistema:
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=.8\textwidth]{umlsimple.png}
+	\includegraphics[width=.8\textwidth]{uml_simple.png}
 	\caption{Diagrama de classes simplificado}
 	\label{uml}
 \end{figure}
 
 \vspace{0.8 true cm}
+\end{comment}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=.8\textwidth]{activity.png}
-	\caption{Diagrama de atividades}
-	\label{activity}
-\end{figure}
-
-\section{Classes implementadas}
-\label{classesimplementadas}
+\section{Funcionalidades}
+\label{funcionalidades}
 \vspace{0.4 true cm}
 \begin{description}
 
@@ -616,9 +615,9 @@ Choices of cards...
 How many cards will you combination have? (1, 2, 3 or 5)
 (press any letter to go back to actions)
 2
-Enter next card: 
+Enter next card:
 1
-Enter next card: 
+Enter next card:
 2
 Pair
 THREE of DIAMONDS
@@ -653,7 +652,7 @@ Selection your action...
 
 O trabalho prático foi prazeroso de ser realizado. Os conceitos de modelagem de classe aprendidos em sala foram bastante reforçados quando nos deparamos com um problema complexo como este.
 
-Foi necessário lidar com o desafio de não ter uma especificação detalhada, o que traz uma série de dificuldades e decições complicadas de serem tomadas. Apesar disso, foi muito interessante e acreditamos que a escolha de um jogo como tema livre proporcionou uma motivação a mais para os alunos do que se fosse um assunto menos divertido. 
+Foi necessário lidar com o desafio de não ter uma especificação detalhada, o que traz uma série de dificuldades e decições complicadas de serem tomadas. Apesar disso, foi muito interessante e acreditamos que a escolha de um jogo como tema livre proporcionou uma motivação a mais para os alunos do que se fosse um assunto menos divertido.
 
 \bibliographystyle{sbc}
 \bibliography{tp1}
