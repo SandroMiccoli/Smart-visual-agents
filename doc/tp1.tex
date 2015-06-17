@@ -33,7 +33,7 @@
 
 \title{Programação Modular \\ Trabalho Final \\ Visualização Interativa de Agentes Inteligentes}
 
-\author{Daniel Diniz - 2008046090 - daniel.diniz@dcc.ufmg.br\\
+\author{Daniel Diniz - 2008046090 - danieldiniz@dcc.ufmg.br\\
 		Diogo Santana - 2011054308 - diogo.marques@dcc.ufmg.br\\
 		Frederico Figueiredo - 2010054371 - fredfig@dcc.ufmg.br\\
 		Sandro Miccoli - 2009052409 - smiccoli@dcc.ufmg.br}
@@ -134,13 +134,35 @@ Essa subseção irá listar todas as possíveis combinações de jogo.
 
 \end{description}
 
-\begin{comment}
 \section{Implementação}
 \label{implementacao}
 
-Foram utilizados neste sistema os padrões de projeto Singleton e Decorator, de modo a garantir uma melhor modularização do código. O primeiro foi utilizado para assegurar uma única instância da classe responsável pela apresentação gráfica do sistema, a qual foi implementada na classe Main por meio da extensão da classe PApplet. O padrão Decorator foi implementado visando evitar alterações no código base da API Processing, garantindo a estabilidade do código, mas permitindo a extensão de funcionalidade por meio da extensão de interfaces.
+Para a implementação dessa simulação utilizamos duas biblioteca de classes Java, \textbf{Processing} e \textbf{ControlP5}. O conjunto de
+funções presentes nas classes do Processing facilitam o desenvolvimento de aplicativos orientados a arte visual e contextos gráficos em geral,
+enquanto as presentes em ControlP5 nada mais que auxiliam a implementação de controladores para elementos integrados às bibliotecas do Processing. 
 
-A interface a ser decorada (Shape) representa uma forma geométrica, a qual pode ser extendida para uma infinidade de formas diferentes. Neste projeto foi implementado apenas a forma Circle, a qual é afetada pelas forças de atração e repulsão implementadas. Tais forças foram representadas como classes extendidas da classe DecoratorShape, adicionando funcionalidade à interface Shape. Finalmente, a interface gráfica do sistema é implementado pela classe Main, a qual herda as funcionalidades da classe PApplet e utiliza o painel de controle implementado na classe P5ControlPanel.
+Foram utilizados neste sistema os padrões de projeto \textit{Singleton, Decorator e Observer}, de modo a garantir uma melhor modularização do código.
+O primeiro foi utilizado para assegurar uma única instância da classe responsável pela apresentação gráfica do sistema, bem como facilitar sua
+recuperação e referenciamento por outras classes do aplicativo. O mesmo padrão foi utilizado para tratar a instanciação da classe ControlP5Panel,
+garantindo que quaisquer alterações feitas no painel ou qualquer informação que seja buscada por outras classes partirá de uma única instância
+unificada deste, tornando-o escalável, dinamicamente modificável, estável e persistente. 
+
+Neste painel pode se constatar, também, a aplicação do padrão \textit{Observer}. Durante a instanciação do Singleton, é criado um elemento nominado
+\textit{CallbackListener}, que escuta por interações do tipo \textit{ACTION\_PRESSED} nos elementos do painel de controle, capturados apenas na instância gráfica
+principal do aplicativo. Essas interações são então convertidas na forma de eventos e enviados de volta para tratamento na classe do \textbf{P5ControlPanel}.
+Tudo isso a fim de garantir que as devidas funções permaneçam encapsuladas de acordo com os princípios de modularidade.
+
+O padrão Decorator por sua vez foi implementado objetivando limitar o número de alterações necessárias na forma básica - \textit{circle} - e
+permitir que novos incrementos de formas e comportamentos sejam feitos respeitando os conceitos fundamentais de Orientação a Objetos, ou seja,
+grande escalabilidade com o mínimo de alteração nas classes mais abstratas e estáveis. 
+
+A interface (Shape) representa uma forma geométrica que pode ser 'decorada' com uma infinidade de elementos diferentes. Nesse projeto
+implementamos apenas diferentes tipos de círculos, tratados para todas as finalidades como comportamentos que decoram os círculos. A simulação conta com
+diversas instâncias da forma \textit{circle}, que são independentemente decoradas com o devido comportamento de acordo com a interação realizada pelo usuário
+através do painel de controle. Tais forças extendem a classe DecoratorShape, adicionando funcionalidade e efetivamente implementando à interface Shape.
+
+Tudo isso é então colocado em execução sincrôna na classe Main, que sobrescreve funcionalidades implementadas na biblioteca processing para criar uma thread
+que monta a simulação com as configurações iniciais e mantém todos os elementos em constante atualização e movimento.
 
 Segue o diagrama de classes simplificado do sistema:
 
@@ -152,410 +174,77 @@ Segue o diagrama de classes simplificado do sistema:
 \end{figure}
 
 \vspace{0.8 true cm}
-\end{comment}
 
 \section{Funcionalidades}
 \label{funcionalidades}
+
+\vspace{0.4 true cm}
+O programa inicia com 6 círculos em posições, direções e velocidades aleatórias, além de um ponto no centro da tela representando o centro de 
+massa de atração\/repulsão. Outros comportamentos podem ser adicionados a partir das seguintes teclas ou botões:
 \vspace{0.4 true cm}
 \begin{description}
 
-\item[MainClass] \hfill \\
-Classe principal que inicia a execução do jogo.
+\item[Botão Vectors] \hfill \\
+Mostra/esconde o vetor de direção do círculo.
 \vspace{0.4 true cm}
 
-\item[Card] \hfill \\
-Classe que contém as informações sobre uma carta, como o seu valor e o naipe, os métodos padrões \textit{getters}, um para o valor e outro para o naipe, além de um método para comprar qual carta é maior.
+\item[Botão Connect] \hfill \\
+Mostra/esconde as linhas que ligam os centros de todos os círculos.
 \vspace{0.4 true cm}
 
-\item[CardCombination] \hfill \\
-Classe que lida com todas as combinações possíveis de cada jogada. Possue os métodos que validam se uma determinada combinação é válida e também se uma combinação é maior ou menor que a outra numa comparação.
+\item[Botão Attract] \hfill \\
+Atrai todos os círculos para o centro de massa.
 \vspace{0.4 true cm}
 
-\item[Deck] \hfill \\
-Classe que cria uma abstração de um baralho, contendo uma carta de cada valor para cada naipe, o método padrão \textit{get}, além de um método para realizar o embaralhamento das cartas do baralho.
+\item[Botão Repel] \hfill \\
+Aumenta a repulsão entre os círculos.
 \vspace{0.4 true cm}
 
-\item[BigTwo] \hfill \\
-Classe que cuida dos detalhes para inicio do jogo. Contém métodos para a criação dos jogadores, distribuição das cartas entre eles, verifica se a primeira jogada contém o 3 de ouros, cuida da ordem do jogo, quem joga depois de quem, além de \textit{getters} e \textit{setters} padrões.
+\item[Botão Reset] \hfill \\
+Desfaz todos os comportamentos adicionados, retornando a execução ao estado inicial.
 \vspace{0.4 true cm}
 
-\item[Player] \hfill \\
-Classe que representa o jogador. Ele possui uma mão de cartas no jogo, um nome próprio e possui método que pode ordenar suas cartas por naipe ou por valor.
+\item[Botão Trail] \hfill \\
+Diminui a frequência de atualização do background da tela, ou seja, diminui a taxa na qual o fundo da tela é redesenhado, 
+mantendo desenhos antigos na tela.
 \vspace{0.4 true cm}
 
-\item[CreateCombinationState] \hfill \\
-Classe que cuida das mudanças de estado do jogo. Possue métodos que lidam com o fluxo do jogo, sobre a montagem das combinações para as jogadas e se as combinações são válidas para modificar o estado do jogo.
+\item[Botão Size] \hfill \\
+Aumenta/reduz o tamanho dos círculos.
 \vspace{0.4 true cm}
 
-\item[EndOfGameState] \hfill \\
-Classe que lida com o final do jogo. Realiza a contagem dos pontos e indica o vencedor.
+\item[Botão RepelIntensity] \hfill \\
+Aumenta/reduz a distância de repulsão entre os círculos.
 \vspace{0.4 true cm}
 
-\item[ListActionsState] \hfill \\
-Classe que lida com os comandos do jogo, quais ações podem ser tomadas para que o jogo continue.
+\item[Barras horizontais] \hfill \\
+Alteram a cor das linhas criadas pelo botão Connect, sendo as 3 primeiras barras referentes às cores RGB e a última referente à opacidade.
 \vspace{0.4 true cm}
 
-\item[ListStartRoundActionsState] \hfill \\
-Classe que lida com os comandos da primeira rodada do jogo.
+\item[Botão Add] \hfill \\
+Adiciona um novo círculo, sendo o máximo possível igual a 30.
 \vspace{0.4 true cm}
 
-\item[NextPlayerState] \hfill \\
-Classe que cuida do fluxo de jogadores, ela que determina qual o próximo jogador após cada jogada válida.
+\item[Botão Remove] \hfill \\
+Remove o último círculo adicionado contanto que o número de círculos na tela seja maior que 5.
 \vspace{0.4 true cm}
 
-\item[StartState] \hfill \\
-Classe que determina quem é o primeiro jogador da partida.
+\item[Tecla Espaço] \hfill \\
+Adiciona um círculo atrator, sendo o máximo possível igual a 10. Não é afetado pelas demais funcionalidades, exceto pelo \textit{Trail}.
 \vspace{0.4 true cm}
 
-\item[WaitCombinationState] \hfill \\
-Classe que cuida da espera por uma ação do jogador.
+\item[Tecla Enter] \hfill \\
+Adiciona um círculo repelidor, sendo o máximo possível igual a 10. Também é afetado somente pelo \textit{Trail}.
 \vspace{0.4 true cm}
 
-\item[GameState] \hfill \\
-Interface que implementa o método de início do jogo.
+\item[Tecla Tab] \hfill \\
+Mostra/esconde o menu de opções.
+\vspace{0.4 true cm}
+
+\item[Tecla Shift + P] \hfill \\
+Tira um screenshot da tela e salva na pasta \textit{prints}
 
 \end{description}
-
-\subsection{Principais métodos implementados}
-
-Essa subseção irá listar os principais métodos implementados no sistema. Funções triviais não serão listadas, como \textit{getters}, \textit{setters} ou similares. Os métodos detalhados a seguir são os principais utilizados para realizar as comparações entre as cartas, além dos métodos que tratam dos estados possíveis do jogo.
-
-\subsubsection{Card}
-
-\begin{itemize}
-\item \begin{large}\textit{public boolean compare(Card that)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a comparação entre duas cartas para determinar qual é maior.
-\subitem \textbf{Parâmetros:} Recebe uma carta que se quer comparar com a instância de carta em questão.
-\subitem \textbf{Retorno:} Retorna falso se a instância é menor que a carta passada como parametro e verdadeiro se for maior.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{CardCombination}
-
-\begin{itemize}
-\item \begin{large}\textit{public boolean checkCombination()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a chamada do método adequado para verificar se a combinação é válida.
-\subitem \textbf{Retorno:} Retorna a chamada de método para cada tipo de combinação e falso para o caso de não ser válida.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private boolean checkTwoCards()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se a combinação é válida como par.
-\subitem \textbf{Retorno:} Retorna verdadeiro se for um par válido e falso se não for um par válido.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private boolean checkThreeCards()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se a combinação é válida como trinca.
-\subitem \textbf{Retorno:} Retorna verdadeiro se for uma trinca válida e falso se não for uma trinca válida.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private boolean checkFiveCards()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a chamada do método adequado para verificar se a combinação de cinco cartas é válida.
-\subitem \textbf{Retorno:} Retorna a chamada de método para cada tipo de combinação de cinco cartas e falso para o caso de não ser válida.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private boolean checkStraight()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se a combinação é do tipo sequência.
-\subitem \textbf{Retorno:} Retorna verdadeiro se for uma sequência válida e falso se não for uma sequência válida.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private boolean checkFlush()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se a combinação é do tipo flush.
-\subitem \textbf{Retorno:} Retorna verdadeiro se for um flush válido e falso se não for um flush válido.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private boolean checkFullHouse()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se a combinação é do tipo full house.
-\subitem \textbf{Retorno:} Retorna verdadeiro se for um full house válido e falso se não for um full house válido.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private boolean checkFour()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se a combinação é do tipo four.
-\subitem \textbf{Retorno:} Retorna verdadeiro se for um four válido e falso se não for um four válido.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private boolean checkThreeOfDiamonds()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se na combinação existe o 3 de ouros.
-\subitem \textbf{Retorno:} Retorna verdadeiro se existir o 3 de ouros na combinação e falso se não existir.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public boolean checkFirstCombination()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se a primeira combinação do jogo é válida e se ela possui o 3 de ouros.
-\subitem \textbf{Retorno:} Retorna verdadeiro se for válido e existir o 3 de ouros na combinação e falso se algum dos dois for falso.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private void sortByRank()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a ordenação das cartas da combinação por valor.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void sortBySuit()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a ordenação das cartas da combinação por naipe.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public boolean isHigherThan(CardCombination that)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a comparação entre duas combinações de cartas para determinar qual é maior.
-\subitem \textbf{Parâmetros:} Recebe uma combinação que se quer comparar com a instância de combinação em questão.
-\subitem \textbf{Retorno:} Retorna falso se a instância é menor que a combinação passada como parâmetro e verdadeiro se for maior.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{Deck}
-
-\begin{itemize}
-\item \begin{large}\textit{public void shuffle()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o embaralhamento das cartas utilizando uma função padrão do Java para lidar com Collections.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{BigTwo}
-
-\begin{itemize}
-\item \begin{large}\textit{public void startGame()}\end{large}\\
-\subitem \textbf{Descrição:} Chama os métodos que de fato inicia o jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private void createPlayers()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a criação dos 4 jogadores.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{private void distributeCards()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a distribuição das cartas para os jogadores, cada um com 13 cartas.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void setNextPlayer()}\end{large}\\
-\subitem \textbf{Descrição:} Determina qual o jogador da próxima rodada.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void printCurrentCombination()}\end{large}\\
-\subitem \textbf{Descrição:} Imprime na tela a combinação que está na mesa atualmente e que deve ser vencida para que se possa jogar.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public boolean gameOver()}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se algum jogador terminou suas cartas, imprime que o jogo acabou.
-\subitem \textbf{Retorno:} Retorna verdadeiro se o algum jogador terminou suas carta e falso caso contrário.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void updateLowestHand(Player p)}\end{large}\\
-\subitem \textbf{Descrição:} Atualiza para cada jogador para sempre ficar armazenado qual jogador tem o menor número de cartas do jogo.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o jogador que acabou de jogar.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{CreateCombinationState}
-
-\begin{itemize}
-\item \begin{large}\textit{public void doAction(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o controle da criação de uma combinação para ser jogada.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void listHand(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a impressão das opções de cartas e um índice de escolhas.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void playCombination(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o controle da jogada em si, chamando os métodos para validar a jogada.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public boolean createCombination()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o controle da formação da combinação, ao selecionar carta por carta.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\subitem \textbf{Retorno:} Retorna verdadeiro se a combinação foi criada com sucesso e falso caso contrário.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public boolean setSizeOfCombination()}\end{large}\\
-\subitem \textbf{Descrição:} Determina o tamanho da combinação a ser formada em seguida.
-\subitem \textbf{Retorno:} Retorna verdadeiro se o tamanho da combinação for válida e falso caso contrário.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public boolean confirmCombination()}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o controle da validação da jogada, verificando todos os detalhes para a jogada ser válida.
-\subitem \textbf{Retorno:} Retorna verdadeiro se a combinação for jogada com sucesso e falso caso contrário.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void checkCombination(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Verifica se a combinação é válida, sobretudo se for a primeira rodada do jogo.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void removeCombinationFromHand(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Remove as cartas da combinação jogada da mão do jogador.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{EndOfGameState}
-
-\begin{itemize}
-\item \begin{large}\textit{public void doAction(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Imprime que o jogo acabou e quem foi o vencedor.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{ListActionsState}
-
-\begin{itemize}
-\item \begin{large}\textit{public void doAction(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o controle da ação de escolha do comando.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public int waitingForInput()}\end{large}\\
-\subitem \textbf{Descrição:} Espera pelo comando do usuário.
-\subitem \textbf{Retorno:} Retorna o inteiro que representa o comando escolhido.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public void listActions()}\end{large}\\
-\subitem \textbf{Descrição:} Lista os comandos possíveis.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public GameState nextState(int action, BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o controle do estado, modificando ele de acordo com o comando.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo e o inteiro com o comando.
-\subitem \textbf{Retorno:} Retorna o estado do jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{ListStartRoundActionsState}
-
-\begin{itemize}
-\item \begin{large}\textit{public void listActions()}\end{large}\\
-\subitem \textbf{Descrição:} Lista os comandos possíveis.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\begin{itemize}
-\item \begin{large}\textit{public GameState nextState(int action, BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o controle do estado, modificando ele de acordo com o comando.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo e o inteiro com o comando.
-\subitem \textbf{Retorno:} Retorna o estado do jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{NextPlayerState}
-
-\begin{itemize}
-\item \begin{large}\textit{public void doAction(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a mudança do jogador atual depois de uma jogada.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{StartState}
-
-\begin{itemize}
-\item \begin{large}\textit{public void doAction(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza o controle do inicio do jogo, imprimindo o primeiro jogador.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
-
-\subsubsection{WaitCombinationState}
-
-\begin{itemize}
-\item \begin{large}\textit{public void doAction(BigTwo game)}\end{large}\\
-\subitem \textbf{Descrição:} Realiza a espera pela próxima ação do próximo jogador.
-\subitem \textbf{Parâmetro:} Recebe como parâmetro o próprio jogo.
-\end{itemize}
-
-\vspace{0.2 true cm}
 
 \section{Testes}
 \label{testes}
