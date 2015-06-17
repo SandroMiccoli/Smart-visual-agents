@@ -17,7 +17,7 @@ JR = java
 RM = rm -f
 
 # Classe com metodo main
-MAIN = Main
+MAIN = MainClass
 
 # Dependencias externas
 JARS = jars/*

@@ -61,7 +61,6 @@ Esse relatório descreve como foi implementado a Visualização Interativa de Ag
 Durante as aulas da disciplina vimos muitos exemplos de como implementar formas geométricas dinâmicas, então decidimos aplicar isso no nosso trabalho final. O objetivo do trabalho é unir os conceitos que aprendemos sobre programação modular e padrões de projeto e aplicá-los num contexto que seja esteticamente agradável. Isso será feito utilizando apenas formas geométricas e linhas com o intuito de gerar padrões visuais interessantes.
 O modo como chegaremos nesse resultado será utilizando algoritmos de movimentação de inteligência artificial, usando conceitos como bug algorithm, campos de potencial e desvio de obstáculos (steering).
 O planejamento inicial consiste em construir agentes inteligentes que se atraem e repelem. Cada grupo de agentes terá uma atração a certo grupo e repulsão a outros. Por causa dessa característica de atração e repulsão, no momento em que vários agentes são atraídos por um único agente, é esperado que eles entrem em equilíbrio e formem padrões geométricos regulares.
-Já é possível perceber várias possibilidades de utilização de padrões de projeto:  Flyweight, caso instanciarmos muitos elementos gráficos; Factory Method, para a geração de diferentes tipos de agentes; State, para definir e controlar dinamicamente o estado de cada agente.
 
 Modelagem inicial do problema.
 Construção de agentes básicos.
@@ -162,6 +161,10 @@ implementamos apenas diferentes tipos de círculos, tratados para todas as final
 diversas instâncias da forma \textit{circle}, que são independentemente decoradas com o devido comportamento de acordo com a interação realizada pelo usuário
 através do painel de controle. Tais forças extendem a classe DecoratorShape, adicionando funcionalidade e efetivamente implementando à interface Shape.
 
+As funcionalidades que são adicionadas às formas de Shapes são de atração e repulsão, representadas pelas classes AttractShape e RepelShape, respectivamente. Essas classes alteram o comportamento das formas em tempo de execução, permitindo que elas sejam atraídas por um único ponto e repelidas entre si. 
+
+Esses comportamentos foram baseados em algoritmos de Interligência Artificial, como o \textit{bug algorithm}, que utilizam campos de potencial para definir o comportamento de movimentação de agentes. O campo de potencial é utilizado para definir intensidade das forças de atração e repulsão, que acaba determinando o comportamento dos agentes. É interessante destacar que o padrão Decorator pode ser aplicado várias vezes sobre os mesmos elementos, aumentando a intensidade da força calculada pelo campo de potencial.
+
 Tudo isso é então colocado em execução sincrôna na classe Main, que sobrescreve funcionalidades implementadas na biblioteca processing para criar uma thread
 que monta a simulação com as configurações iniciais e mantém todos os elementos em constante atualização e movimento.
 
@@ -250,10 +253,7 @@ Tira um screenshot da tela e salva na pasta \textit{prints}
 \section{Testes}
 \label{testes}
 
-O desenvolvimento deste aplicativo passou por diversas fases até chegar ao estado de arte em que se encontra. Por se tratar também de um conceito
-que pode ser considerado bastante abstrato por alguns, não havia, inicialmente, uma ideia fixa de como seria o estado final do programa. Assim,
-seguem algumas imagens das primeiras versões e ideias que tivemos, que podem ser consideradas também como testes para descobrirmos os potenciais
-que poderiamos atingir, além de servir como motivação para a evolução incremental da ideia.
+O desenvolvimento deste aplicativo passou por diversas fases até chegar ao estado de arte em que se encontra. Por se tratar também de um conceito que pode ser considerado bastante abstrato por alguns, não havia, inicialmente, uma ideia fixa de como seria o estado final do programa. Assim, seguem algumas imagens das primeiras versões e ideias que tivemos, que podem ser consideradas também como testes para descobrirmos os potenciais que poderiamos atingir, além de servir como motivação para a evolução incremental da ideia.
 
 \begin{figure}[H]
   \centering
@@ -286,12 +286,11 @@ que poderiamos atingir, além de servir como motivação para a evolução incre
 
 \section{Conclusão}
 \label{conclusao}
-A partir deste trabalho foi possível aprimorar nossos conhecimentos em programação modular pela aplicação conceitos de padrões de projeto, 
-interface gráfica, herança e encapsulamento de dados. Além do mais, o projeto também proporcionou uma experiência de desenvolvimento em equipe
-e da modelagem em conjunto de um problema, aproximando-nos à realidade de desenvolvimento do mercado.
+A partir deste trabalho foi possível aprimorar nossos conhecimentos em programação modular pela aplicação de conceitos como padrões de projeto, interface gráfica, herança, polimorfismo e encapsulamento de dados. Além do mais, o projeto também proporcionou uma experiência de desenvolvimento em equipe e da modelagem em conjunto de um problema, aproximando-nos à realidade de desenvolvimento do mercado.
 
-Apesar das dificuldades de implementação do padrão de projeto Decoratir, os resultados mostraram-se satisfatórios e até mesmo melhores do que
-o esperado. Gerar padrões de imagens mostrou-se bastante divertido e foram gastos horas apenas experimentando as diversas combinações de funcionalidades
+Foi interessante visualizar como padrões de projeto podem alterar o comportamento do programa criado, especialmente no caso de uma aplicação gráfica. No caso do padrão Decorator, podemos ver ele sendo adicionado várias vezes sobre o mesmo elemento e aumentando a atração e repulsão entre os elementos.
+
+Apesar das dificuldades de implementação do comportamento dos agentes, os resultados mostraram-se satisfatórios e até mesmo melhores do que o esperado. Gerar padrões de imagens mostrou-se bastante divertido e foram gastas horas apenas experimentando as diversas combinações de funcionalidades.
 
 \bibliographystyle{sbc}
 \bibliography{tp1}
