@@ -22,7 +22,7 @@ public class Main extends PApplet {
 
 	// instance of the control panel singleton
 	P5ControlPanel controlP5;
-	private boolean hide = false;
+	private boolean hide = true;
 
 	public static Main getInstance() {
 		/* does not need to check for existing
@@ -48,6 +48,7 @@ public class Main extends PApplet {
 
 		// gets singleton
 		controlP5 = P5ControlPanel.getInstance(this);
+		controlP5.hide(); // start hidden
 
 		// initialize all "circles"
 		for (int i = 0; i < circles.length; i++) {
