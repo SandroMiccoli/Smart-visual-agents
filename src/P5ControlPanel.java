@@ -9,10 +9,18 @@ public class P5ControlPanel {
 	private static PApplet controlParent = null;
 	private static P5ControlPanel instance = null;
 	private static ControlP5 controlP5;
+	ColorPicker cp;
 
 	protected P5ControlPanel(PApplet source) {
-
+		          
 		controlP5 = new ControlP5(source);
+
+		//adds a color picker for the connecting lines
+
+		cp = controlP5.addColorPicker("ColorPicker")
+		          .setPosition(160, 10)
+		          .setColorValue(source.color(255, 128, 0, 128));
+		          
 		controlP5.addCallback(createCallBackListener());
 
 		// change the default font to Verdana
@@ -46,6 +54,10 @@ public class P5ControlPanel {
 		}
 		else
 			return instance;
+	}
+	
+	public int getPickerColor() {
+		return cp.getColorValue();
 	}
 
 	//returns values of controller elements.

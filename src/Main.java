@@ -124,11 +124,11 @@ public class Main extends PApplet {
 
 	private void connectShapes(){
 		for (int i = 0; i < CURRENT_CIRCLES; i++) {
-			//for (int j = circles.length/2-1; j < circles.length; j++) {
 			for (int j = i; j < CURRENT_CIRCLES; j++) {
 				strokeWeight(2);
-				stroke(0,10);
-				//stroke(random(255),random(255),random(255));
+				//stroke(0,10);
+				stroke((controlP5.getPickerColor()));
+				
 				line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
 			}
 		}
