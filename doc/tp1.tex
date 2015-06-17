@@ -8,7 +8,6 @@
 
 \documentclass[12pt]{article}
 \usepackage{sbc-template}
-\usepackage{float}
 \usepackage{graphicx}
 \usepackage{latexsym}
 \usepackage{changepage}   % for the adjustwidth environment
@@ -34,7 +33,7 @@
 
 \title{Programação Modular \\ Trabalho Final \\ Visualização Interativa de Agentes Inteligentes}
 
-\author{Daniel Diniz - 2008046090 - danieldiniz@dcc.ufmg.br\\
+\author{Daniel Diniz - 2008046090 - daniel.diniz@dcc.ufmg.br\\
 		Diogo Santana - 2011054308 - diogo.marques@dcc.ufmg.br\\
 		Frederico Figueiredo - 2010054371 - fredfig@dcc.ufmg.br\\
 		Sandro Miccoli - 2009052409 - smiccoli@dcc.ufmg.br}
@@ -58,81 +57,16 @@ Esse relatório descreve como foi implementado a Visualização Interativa de Ag
 \section{Introdução}
 \label{introducao}
 
-Durante as aulas da disciplina vimos muitos exemplos de como implementar formas geométricas dinâmicas, então decidimos aplicar isso no nosso trabalho final. O objetivo do trabalho é unir os conceitos que aprendemos sobre programação modular e padrões de projeto e aplicá-los num contexto que seja esteticamente agradável. Isso será feito utilizando apenas formas geométricas e linhas com o intuito de gerar padrões visuais interessantes.
-O modo como chegaremos nesse resultado será utilizando algoritmos de movimentação de inteligência artificial, usando conceitos como bug algorithm, campos de potencial e desvio de obstáculos (steering).
-O planejamento inicial consiste em construir agentes inteligentes que se atraem e repelem. Cada grupo de agentes terá uma atração a certo grupo e repulsão a outros. Por causa dessa característica de atração e repulsão, no momento em que vários agentes são atraídos por um único agente, é esperado que eles entrem em equilíbrio e formem padrões geométricos regulares.
 
-Modelagem inicial do problema.
-Construção de agentes básicos.
-Implementação do bug algorithm com campos de potencial.
-Implementar comportamentos aleatórios para os agentes.
-Implementação de uma interface gráfica
-Escrever documentação do projeto
+Durante as aulas da disciplina foram vistos muitos exemplos de como implementar formas geométricas dinâmicas, então decidimos aplicar isso no nosso trabalho final. O objetivo do trabalho é unir os conceitos que aprendemos sobre programação modular e padrões de projeto e aplicá-los num contexto que seja esteticamente agradável. Isso será feito utilizando apenas formas geométricas e linhas com o intuito de gerar padrões visuais interessantes.
+O modo como chegaremos nesse resultado será utilizando algoritmos de movimentação de inteligência artificial, usando conceitos como \textit{bug algorithm}, campos de potencial e desvio de obstáculos (\textit{steering}).
 
-Possível utilizar a biblioteca controlP5 do Processing, que permite alterar valores do código em tempo de execução.
-
-
-O problema proposto neste trabalho foi a especificação e implementação de uma visualização jogo de cartas a ser escolhido pela dupla. O jogo escolhido por nós foi o Pôquer Chinês (Big Two). O objetivo principal do jogo é vencer ao acabar com todas as cartas da mão recebida pelo jogador. A proposta do trabalho prático é proporcionar uma interface simples por linha de comando que seja jogável. O programa implementado será detalhado superficialmente aqui, porém a (Seção \ref{implementacao}) irá explicar em profundo os detalhes de implementação.
+O planejamento inicial consiste em construir agentes inteligentes que se atraem e se repelem. Cada grupo de agentes terá uma atração a certo grupo e repulsão a outros. Por causa dessa característica de atração e repulsão, no momento em que vários agentes são atraídos por um único agente, é esperado que eles entrem em equilíbrio e formem padrões geométricos regulares.
 
 \section{Planejamento}
 \label{planejamento}
 
-O planejamento que antecedeu à implementação ocorreu da seguinte forma: estudamos as regras do jogo existentes na internet, como são muitas variantes, tivemos que escolher uma e implementar ela. Após isso, definimos os módulos principais que o jogo deveria ter, suas classes e métodos. Com isso, geramos um diagrama UML para melhor compreensão do que iríamos desenvolver. Além disso criamos um repositório git online para que pudéssemos trabalhar em paralelo no mesmo código e caminhar rápido com o trabalho.
-
-\section{Regras}
-\label{regras}
-
-O Pôquer Chinês \cite{bigtwo} é um jogo de cartas cujo objetivo é ser o primeiro a desfazer de todas as suas cartas. É por vezes chamada de pôquer chinês devido à sua origem chinesa e uso de mãos de pôquer, embora seja um jogo de natureza completamente diferente.
-Ele é jogado tanto casualmente como por dinheiro. É geralmente jogado com dois a quatro jogadores, com o baralho inteiro sendo distribuído para todos os jogadores, ou 13 cartas para cada jogador.
-Após as cartas terem sido distribuídas, no geral, o jogador com a menor carta, o 3 de ouros, joga primeiro, com o jogo prosseguindo em uma direção horária. Cartas podem ser colocadas na mesa como únicas, duplas, trios ou em grupo de cinco, utilizando as regras do pôquer, inclusive na primeira jogada feita por quem tem o 3 de ouros.
-Depois do início do jogo dado pela jogada do primeiro jogador, o jogador a seguir precisa colocar um mesmo número de cartas que sejam maiores do que aqueles colocados pelo jogador anterior. Caso um jogador não possa ou não queira colocar uma carta ou combinação, ele passa seu turno. Caso todos os oponentes decidam passar, então o jogador remanescente possui o direito de colocar qualquer combinação permitida. O naipe das cartas é utilizado como critério de desempate, sendo a ordem do menor para o maior: ouros, paus, copas e espadas.
-
-\subsection{Tipos de combinações de jogo}
-\vspace{0.2 true cm}
-
-Essa subseção irá listar todas as possíveis combinações de jogo.
-
-\begin{description}
-
-\item[Uma carta] \hfill \\
- Qualquer carta do baralho, ordenadas pelo valor da carta (sendo 3 o menor e 2 o maior), com o naipe sendo o critério de desempate. Por exemplo, o 2 de espadas é maior do que qualquer outra carta do jogo, o A de espadas é maior do que o A de ouros, esta sendo maior do que um K de espadas.
-
-\vspace{0.4 true cm}
-
-\item[Par] \hfill \\
- Quaisquer duas cartas iguais, com o maior naipe das duplas sendo utilizado como critério de desempate. Um par de K de espadas e K de ouros é melhor que um par de K de copas e K de paus.
-
-\vspace{0.4 true cm}
-
-\item[Trinca] \hfill \\
- Três cartas de mesmo valor, o desempate é feito através do maior valor.
-
-\vspace{0.4 true cm}
-
-\item[Cinco cartas] \hfill \\
- Existem cinco mãos válidas, ordenadas a seguir do menor para o maior:
- \vspace{0.02 true cm}
-\begin{adjustwidth}{1.2cm}{}
-\item[\textbf{Sequência}] \hfill \\
-		Cinco cartas em sequência, não do mesmo naipe. Caso empate ganha aquele com a maior sequência: 10-J-Q-K-A \textgreater  … \textgreater  2-3-4-5-6 \textgreater  A-2-3-4-5, ou seja, o rank da maior carta da sequência determina qual é a maior, o A e o 2 nas sequências baixas não influenciam no valor da sequência;
-\vspace{0.4 true cm}
-\item[\textbf{Flush}] \hfill \\
-		Cinco cartas do mesmo naipe, não em sequência. O desempate é determinado primeiro pela carta de maior valor, e então pelo naipe mais alto;
-\vspace{0.4 true cm}
-\item[\textbf{Full House}] \hfill \\
-		Uma trinca e um par, a trinca mais alta é utilizada como critério de desempate;
-\vspace{0.4 true cm}
-\item[\textbf{Quadra + 1}] \hfill \\
-		Quatro cartas do mesmo valor mais uma carta qualquer. Observe que, ao contrário do pôquer, uma quadra não pode ser utilizada por sí só. O desempate é determinado pelo valor de uma das cartas da quadra.
-\vspace{0.4 true cm}
-\item[\textbf{Sequência de mesmo naipe}] \hfill \\
-		Uma sequência e um flush ao mesmo tempo. O desempate é determinado primeiro pela maior carta, e então pelo maior naipe.
-\vspace{0.4 true cm}
-\item[\textbf{Sequência real}] \hfill \\
-		O mesmo que a sequência de mesmo naipe, mas limitado a 10, J, Q, K e A. Esta é a maior combinação possível. Apenas uma sequência real com um naipe maior pode vencer outra sequência real. A sequência real de espadas é a combinação de cartas mais poderosa do jogo.
-\end{adjustwidth}
-
-\end{description}
+O planejamento que antecedeu à implementação ocorreu da seguinte forma: realizamos uma modelagem inicial do problema; construímos os agentes básicos; implementação do \textit{bug algorithm} com campos de potencial; implementamos o comportamento aleatório para os agentes; implementamos a interface gráfica que controla o programa e escrevemos a documentação do projeto. Além disso criamos um repositório git online para que pudéssemos trabalhar em paralelo no mesmo código e caminhar rápido com o trabalho.
 
 \section{Implementação}
 \label{implementacao}
@@ -170,22 +104,22 @@ que monta a simulação com as configurações iniciais e mantém todos os eleme
 
 Segue o diagrama de classes simplificado do sistema:
 
+Após gerar o diagrama UML que indicava quais classes precisariam ser implementadas, foi definida como seria montada a estrutura de dados do programa. Abaixo, na Figura \ref{uml}, é possível ver uma versão simplificada do diagrama de classes do sistema implementado. Simplificada pois não contém nenhuma informação de atributos ou métodos, apenas de relacionamento entre as classes. 
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=.8\textwidth]{uml_simple.png}
+	\includegraphics[width=.8\textwidth]{umlsimple.png}
 	\caption{Diagrama de classes simplificado}
 	\label{uml}
 \end{figure}
 
-\vspace{0.8 true cm}
-
 \section{Funcionalidades}
 \label{funcionalidades}
+\vspace{0.4 true cm}
 
-\vspace{0.4 true cm}
 O programa inicia com 6 círculos em posições, direções e velocidades aleatórias, além de um ponto no centro da tela representando o centro de 
-massa de atração\/repulsão. Outros comportamentos podem ser adicionados a partir das seguintes teclas ou botões:
-\vspace{0.4 true cm}
+massa de atração/repulsão. Outros comportamentos podem ser adicionados a partir das seguintes teclas ou botões:
+
 \begin{description}
 
 \item[Botão Vectors] \hfill \\
@@ -250,56 +184,183 @@ Tira um screenshot da tela e salva na pasta \textit{prints}
 
 \end{description}
 
+\section{Classes implementadas}
+\label{classesimplementadas}
+\vspace{0.4 true cm}
+\begin{description}
+
+\item[Main] \hfill \\
+Classe principal que inicia a visualização.
+\vspace{0.4 true cm}
+
+\item[AttractShape] \hfill \\
+Classe que define o comportamento de atração entre os objetos. O objeto que é decorado com essa classe atrai outros objetos de forma dinâmica.
+\vspace{0.4 true cm}
+
+\item[Circle] \hfill \\
+Classe que representa o formato geométrico circular.
+\vspace{0.4 true cm}
+
+\item[DecoratedShape] \hfill \\
+É uma referência para o objeto original e trabalha com uma interface para a interface Shape.
+\vspace{0.4 true cm}
+
+\item[P5ControlPanel] \hfill \\
+Classe que cuida da instanciação, configuração e controlador dos eventos do programa. Possui uma interface para manipular os objetos.
+\vspace{0.4 true cm}
+
+\item[RepelShape] \hfill \\
+Classe que define o comportamento de repulsão entre os objetos. O objeto que é decorado com essa classe repele outros objetos de forma dinâmica.
+\vspace{0.4 true cm}
+
+\item[Shape] \hfill \\
+Interface para todos as formas de objetos.
+
+\end{description}
+
+\subsection{Principais métodos implementados}
+
+Essa subseção irá listar os principais métodos implementados no sistema. Funções triviais não serão listadas, como \textit{getters}, \textit{setters} ou similares. Os métodos detalhados a seguir são os principais utilizados para a criação, decoração, controle, entre outras características.
+
+\subsubsection{Main}
+
+\begin{itemize}
+\item \begin{large}\textit{public void setup()}\end{large}\\	
+\subitem \textbf{Descrição:} Certifica de que somente uma instância do painel de controle existe.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+\item \begin{large}\textit{public void reset()}\end{large}\\
+\subitem \textbf{Descrição:} Redefine todas as formas para o formato inicial.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+\item \begin{large}\textit{public synchronized void draw()}\end{large}\\
+\subitem \textbf{Descrição:} Responsável pelo redesenho do formato de cada círculo.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+\item \begin{large}\textit{private void connectShapes()}\end{large}\\
+\subitem \textbf{Descrição:} Desenha as linhas entre cada círculo.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+\item \begin{large}\textit{public synchronized void keyPressed(KeyEvent e)}\end{large}\\
+\subitem \textbf{Descrição:} Realiza a escuta para o tratamento das teclas espaço e enter, além de lidar com a criação da atração ou repulsão dos objetos.\subitem \textbf{Parâmetros:} Recebe uma tecla de evento.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\subsubsection{AttractShape}
+
+\begin{itemize}
+\item \begin{large}\textit{private void attractOtherShapes()}\end{large}\\
+\subitem \textbf{Descrição:} Realiza o envio da localização de cada elemento para lidar com as colisões na repulsão.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+\item \begin{large}\textit{public void forces(Shape targetLoc)}\end{large}\\	
+\subitem \textbf{Descrição:} Essa função aumenta ou diminui a intensidade da repulsão entre os elementos.
+\subitem \textbf{Parâmetro:} Recebe como parâmetro o tipo Shape, que é o formato dos objetos.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\subsubsection{Circle}
+
+\begin{itemize}
+\item \begin{large}\textit{public void display()}\end{large}\\
+\subitem \textbf{Descrição:} Desenha na tela o círculo.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+\item \begin{large}\textit{public void drawVectors()}\end{large}\\
+\subitem \textbf{Descrição:} Desenha o vetor que mostra a direção do movimento dos objetos.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+\item \begin{large}\textit{public void move()}\end{large}\\
+\subitem \textbf{Descrição:} Movimenta os elementos na tela.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\begin{itemize}
+\item \begin{large}\textit{public void bounds()}\end{large}\\
+\subitem \textbf{Descrição:} Certifica que os objetos fiquem dentro dos limites da tela.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\subsubsection{P5ControlPanel}
+
+\begin{itemize}
+\item \begin{large}\textit{public static P5ControlPanel getInstance(PApplet source)}\end{large}\\
+\subitem \textbf{Descrição:} Certifica de que somente uma instância do painel de controle existe.Realiza o controle da criação de uma combinação para ser jogada.
+\subitem \textbf{Parâmetro:} Recebe como parâmetro o PApplet, que é uma subclasse do java que controla o painel.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
+\subsubsection{RepelShape}
+
+\begin{itemize}
+\item \begin{large}\textit{public void forces(Shape targetLoc)}\end{large}\\
+\subitem \textbf{Descrição:} Essa função aumenta ou diminui a intensidade da repulsão entre os elementos.
+\subitem \textbf{Parâmetro:} Recebe como parâmetro o tipo Shape, que é o formato dos objetos.
+\end{itemize}
+
+\vspace{0.2 true cm}
+
 \section{Testes}
 \label{testes}
-
 O desenvolvimento deste aplicativo passou por diversas fases até chegar ao estado de arte em que se encontra. Por se tratar também de um conceito que pode ser considerado bastante abstrato por alguns, não havia, inicialmente, uma ideia fixa de como seria o estado final do programa. Assim, seguem algumas imagens das primeiras versões e ideias que tivemos, que podem ser consideradas também como testes para descobrirmos os potenciais que poderiamos atingir, além de servir como motivação para a evolução incremental da ideia.
 
-\begin{figure}[H]
-  \centering
-  \begin{minipage}{.5\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{firstver}
-    \caption{v0.1}
-  \end{minipage}%
-  \begin{minipage}{.5\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{secondver}
-    \caption{v0.5}
-    \end{minipage}%
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{teste1.png}
+	\caption{Visualização de Teste 1}
+	\label{umlfull}
 \end{figure}
-    
 
-\begin{figure}[H]
-  \centering
-  \begin{minipage}{.5\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{experiment}
-    \caption{v0.8}
-  \end{minipage}%
-  \begin{minipage}{.5\textwidth}
-    \centering
-    \includegraphics[scale=0.35]{thirdver}
-    \caption{v1.0}
-    \end{minipage}%
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.8\textwidth]{teste2.png}
+	\caption{Visualização de Teste 2}
+	\label{umlfull}
 \end{figure}
 
 \section{Conclusão}
 \label{conclusao}
+
 A partir deste trabalho foi possível aprimorar nossos conhecimentos em programação modular pela aplicação de conceitos como padrões de projeto, interface gráfica, herança, polimorfismo e encapsulamento de dados. Além do mais, o projeto também proporcionou uma experiência de desenvolvimento em equipe e da modelagem em conjunto de um problema, aproximando-nos à realidade de desenvolvimento do mercado.
 
 Foi interessante visualizar como padrões de projeto podem alterar o comportamento do programa criado, especialmente no caso de uma aplicação gráfica. No caso do padrão Decorator, podemos ver ele sendo adicionado várias vezes sobre o mesmo elemento e aumentando a atração e repulsão entre os elementos.
 
-Apesar das dificuldades de implementação do comportamento dos agentes, os resultados mostraram-se satisfatórios e até mesmo melhores do que o esperado. Gerar padrões de imagens mostrou-se bastante divertido e foram gastas horas apenas experimentando as diversas combinações de funcionalidades.
+Apesar das dificuldades de implementação do comportamento dos agentes, os resultados mostraram-se satisfatórios e até mesmo melhores do que o esperado. Gerar padrões de imagens mostrou-se bastante divertido e foram gastas horas apenas experimentando as diversas combinações de funcionalidades. \cite{github}
 
 \bibliographystyle{sbc}
 \bibliography{tp1}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=.8\textwidth]{umlfull.png}
-	\caption{Diagrama de classes completo}
-	\label{umlfull}
-\end{figure}
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[width=.8\textwidth]{umlfull.png}
+%	\caption{Diagrama de classes completo}
+%	\label{umlfull}
+%\end{figure}
 
 \end{document}
