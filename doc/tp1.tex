@@ -248,100 +248,24 @@ Tira um screenshot da tela e salva na pasta \textit{prints}
 
 \section{Testes}
 \label{testes}
-Para esse trabalho, os testes foram os mais legais possíveis, pois testamos o jogo jogando! Não criamos nenhum teste automatizado, mas criamos uma planilha de BUGs para serem resolvidos. Para fins de demonstração, imprimimos uma rodada do jogo para ilustrar como ficou a interação do jogador.
 
-\subsection{Listagem da saída}
-
-\begin{verbatim}
-
-Starting game...
-Shuffling the deck...
-Creating players...
-Distributing cards...
-Player 2's plays first.
-Waiting for Player 2's action...
-Player 2 choose your action:
-1) Sort hand by suit
-2) Sort hand by rank
-3) Create combination of cards
-Selection your action...
-2
-Sorting hand by rank...
-Current hand...
-THREE of SPADES
-THREE of DIAMONDS
-FOUR of HEARTS
-SEVEN of CLUBS
-SEVEN of SPADES
-EIGHT of SPADES
-EIGHT of CLUBS
-TEN of CLUBS
-JACK of DIAMONDS
-ACE of CLUBS
-ACE of HEARTS
-ACE of DIAMONDS
-TWO of SPADES
-Player 2 choose your action:
-1) Sort hand by suit
-2) Sort hand by rank
-3) Create combination of cards
-Selection your action...
-3
-Choices of cards...
-[ 1 ] THREE of SPADES
-[ 2 ] THREE of DIAMONDS
-[ 3 ] FOUR of HEARTS
-[ 4 ] SEVEN of CLUBS
-[ 5 ] SEVEN of SPADES
-[ 6 ] EIGHT of SPADES
-[ 7 ] EIGHT of CLUBS
-[ 8 ] TEN of CLUBS
-[ 9 ] JACK of DIAMONDS
-[ 10 ] ACE of CLUBS
-[ 11 ] ACE of HEARTS
-[ 12 ] ACE of DIAMONDS
-[ 13 ] TWO of SPADES
-How many cards will you combination have? (1, 2, 3 or 5)
-(press any letter to go back to actions)
-2
-Enter next card:
-1
-Enter next card:
-2
-Pair
-THREE of DIAMONDS
-THREE of SPADES
-Play this combination? (y/n)
-y
-Current hand...
-FOUR of HEARTS
-SEVEN of CLUBS
-SEVEN of SPADES
-EIGHT of SPADES
-EIGHT of CLUBS
-TEN of CLUBS
-JACK of DIAMONDS
-ACE of CLUBS
-ACE of HEARTS
-ACE of DIAMONDS
-TWO of SPADES
---------------------------------
-Waiting for Player 3's action...
-Player 3 choose your action:
-1) Sort hand by suit
-2) Sort hand by rank
-3) Create combination of cards
-4) Pass
-Selection your action...
-
-\end{verbatim}
+O desenvolvimento deste aplicativo passou por diversas fases até chegar ao estado de arte em que se encontra. Por se tratar também de um conceito
+que pode ser considerado bastante abstrato por alguns, não havia, inicialmente, uma ideia fixa de como seria o estado final do programa. Assim,
+seguem algumas imagens das primeiras versões e ideias que tivemos, que podem ser consideradas também como testes para descobrirmos os potenciais
+que poderiamos atingir, além de servir como motivação para a evolução incremental da ideia.
+\begin{figure}[h]
+  \includegraphics[scale=0.5]{experimentTest}
+  \caption{a nice plot}
+\end{figure}
 
 \section{Conclusão}
 \label{conclusao}
+A partir deste trabalho foi possível aprimorar nossos conhecimentos em programação modular pela aplicação conceitos de padrões de projeto, 
+interface gráfica, herança e encapsulamento de dados. Além do mais, o projeto também proporcionou uma experiência de desenvolvimento em equipe
+e da modelagem em conjunto de um problema, aproximando-nos à realidade de desenvolvimento do mercado.
 
-O trabalho prático foi prazeroso de ser realizado. Os conceitos de modelagem de classe aprendidos em sala foram bastante reforçados quando nos deparamos com um problema complexo como este.
-
-Foi necessário lidar com o desafio de não ter uma especificação detalhada, o que traz uma série de dificuldades e decições complicadas de serem tomadas. Apesar disso, foi muito interessante e acreditamos que a escolha de um jogo como tema livre proporcionou uma motivação a mais para os alunos do que se fosse um assunto menos divertido.
+Apesar das dificuldades de implementação do padrão de projeto Decoratir, os resultados mostraram-se satisfatórios e até mesmo melhores do que
+o esperado. Gerar padrões de imagens mostrou-se bastante divertido e foram gastos horas apenas experimentando as diversas combinações de funcionalidades
 
 \bibliographystyle{sbc}
 \bibliography{tp1}
