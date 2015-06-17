@@ -33,11 +33,34 @@ digraph G {
                 label = "{RepelShape}"
         ]
 
+        Main [
+                label = "{Main}"
+        ]
 
-        Circle -> Shape
-        DecoratedShape -> Shape
-        AttractShape -> DecoratedShape
-        RepelShape -> DecoratedShape
+        P5ControlPanel [
+                label = "{P5ControlPanel}"
+        ]
+
+        PApplet [
+                label = "{PApplet}"
+        ]
+
+
+        Circle -> Shape [arrowhead="empty", style="dashed"]
+        DecoratedShape -> Shape [arrowhead="empty", style="dashed"]
+
+        AttractShape -> DecoratedShape [arrowhead="empty"]
+        RepelShape -> DecoratedShape [arrowhead="empty"]
+
+        Main -> PApplet [arrowhead="empty"]
+        P5ControlPanel -> PApplet [arrowhead="empty"]
+
+        Main -> Shape [arrowhead="odiamond", headlabel = "51", taillabel = "1"]
+
+
+        Main -> Main [arrowhead="vee", headlabel = "1", taillabel = "1"]
+        Main -> P5ControlPanel [arrowhead="vee", headlabel = "1", taillabel = "1"]
+
 
         edge [
                 arrowhead = "none"
