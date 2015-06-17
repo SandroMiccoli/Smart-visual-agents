@@ -205,7 +205,7 @@ public class Main extends PApplet {
 		}
 		else if (e.getKeyChar() == KeyEvent.VK_P) { // To use: SHIFT+P
 			System.out.println("Print saved!");
-			saveFrame("Screen########.png");
+			saveFrame("../prints/Screen########.png");
 		}
 	}
 
