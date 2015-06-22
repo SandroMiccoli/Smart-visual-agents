@@ -24,13 +24,16 @@ public class Main extends PApplet {
 	P5ControlPanel controlP5;
 	private boolean hide = true;
 
+	static PGraphics pg;
+	static PImage pi;
+
 	public static Main getInstance() {
 		/* does not need to check for existing
 		 * instances; automatically instantiated
 		 * at first run						  */
 		return mainInstanceSingleton;
 	}
-	
+
 	// ===========================================================
 	/*	 setup @Overrides a processing function. It's charged with
 	 *	 setting the whole simulation sketch up 	 			*/
@@ -44,8 +47,10 @@ public class Main extends PApplet {
 		attractors = new ArrayList<Shape>();
 		reppelers  = new ArrayList<Shape>();
 
-		size(1000,700);
-
+		size(600,600);
+		
+		createCleanBackground(); //Gray BG
+		
 		// gets singleton
 		controlP5 = P5ControlPanel.getInstance(this);
 		controlP5.hide(); // start hidden
@@ -60,6 +65,17 @@ public class Main extends PApplet {
 		mainAttractor.setPos(new PVector(width/2,height/2));
 		mainAttractor.setSpeed(new PVector(0,0));
 	}
+	
+	// ===========================================================
+	// reset the background to plain gray
+	// ===========================================================
+	private void createCleanBackground() {
+		pi = createImage(600, 600, RGB);
+		
+		for (int i = 0; i < pi.pixels.length; i++) {
+			  pi.pixels[i] = color(191, 191, 191, i % pi.width * 2); 
+			}
+	}
 
 	// ===========================================================
 	// reset the whole sketch to factory settings
@@ -71,6 +87,9 @@ public class Main extends PApplet {
 		for (int i = 0; i < circles.length; i++) {
 			circles[i] = new Circle(this);
 		}
+		
+		createCleanBackground();
+		pg.image(pi,0,0);
 
 		mainAttractor = new Circle(this);
 		mainAttractor.setPos(new PVector(width/2,height/2));
@@ -80,16 +99,30 @@ public class Main extends PApplet {
 	// ===========================================================
 	// responsible for redrawing the sketch simulation every cycle
 	// ===========================================================
-	public synchronized void draw() {
 
-		pushMatrix();
-		noStroke();
+	private void persistDraw() {
+		
+		pg = createGraphics(600, 600);
+		pg.beginDraw();
+		pg.pushMatrix();
+		pg.noStroke();
+		pg.image(pi,0,0);
+									
 		/* Draw a rect over all elements with some alpha to create
 		 * a "trail" illusion									*/
-		fill(191,255-controlP5.getControllerValue("Trail"));
-		rect(0,0,width,height);
-		popMatrix();
+		
+		tint(255,255-controlP5.getControllerValue("Trail")); // Creates trail illusion
+		pg.popMatrix();
+		pg.endDraw();
+		
+		image(pg, 0, 0); 
 
+	}
+
+	public synchronized void draw() {
+		
+		persistDraw();
+			
 		mainAttractor.run();
 
 		// Display and move all circles
@@ -115,13 +148,18 @@ public class Main extends PApplet {
 		for (Shape reppel : reppelers) {
 			reppel.run();
 		}
+
+		if(controlP5.getControllerValue("Persist")==1)
+			pi = get();
+		
+
 	}
 
 
 	public static Shape[] getShapes(){
 		return circles;
 	}
-	
+
 	// ===========================================================
 	// draws lines between each circle shape
 	// ===========================================================
@@ -131,7 +169,7 @@ public class Main extends PApplet {
 				strokeWeight(2);
 				// gets color from the color picker controller
 				stroke((controlP5.getPickerColor()));
-				
+
 				line(circles[i].getPos().x, circles[i].getPos().y, circles[j].getPos().x, circles[j].getPos().y);
 			}
 		}
@@ -148,6 +186,21 @@ public class Main extends PApplet {
 	public void removeButtonBehavior() {
 		if (CURRENT_CIRCLES > 5)
 			CURRENT_CIRCLES--;
+	}
+
+	public void freezeButtonBehavior(){
+		pg = new PGraphics();
+		pg = createGraphics(600, 600);
+		pg.beginDraw();
+		pg.pushMatrix();
+		pg.noStroke();
+		/* Draw a rect over all elements with some alpha to create
+		 * a "trail" illusion									*/
+		//pg.fill(191,255-controlP5.getControllerValue("Trail"));
+		pg.rect(0,0,width,height);
+		pg.popMatrix();
+		pg.endDraw();
+		image(pg, 0, 0);
 	}
 
 	public void attractButton() {
